@@ -1,0 +1,722 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-isms report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #f3eee4;
+  --paper-2: #ebe4d6;
+  --card: #fbf8f2;
+  --ink: #1f1b16;
+  --ink-2: #5a5247;
+  --ink-3: #8f8577;
+  --rule: #d6ccba;
+  --accent: #c8402e;
+  --shadow: 0 1px 0 rgba(60,40,10,.06), 0 8px 24px -12px rgba(60,40,10,.25);
+  --c-semantic_emptiness: #c8402e;
+  --c-repetition: #c98a16;
+  --c-formulaic_rhetoric: #7a4fa0;
+  --c-structure_rhythm: #1f8a7a;
+  --c-generic_vocabulary: #2f65a7;
+  --c-performative_tone: #5f8a2e;
+  --contrib-0: #c8402e;
+  --contrib-1: #c9bfae;
+  --contrib-2: #1f8a7a;
+  --display: "Instrument Serif", "Iowan Old Style", Georgia, serif;
+  --body: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #161412; --paper-2: #1e1b18; --card: #211e1a; --ink: #ebe4d6; --ink-2: #b4aa9a; --ink-3: #7d7465;
+    --rule: #3a342d; --accent: #ef6a52; --shadow: 0 1px 0 rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7);
+    --c-semantic_emptiness: #f0705a; --c-repetition: #e7a93a; --c-formulaic_rhetoric: #b38ae0;
+    --c-structure_rhythm: #45c2ae; --c-generic_vocabulary: #6aa2ea; --c-performative_tone: #98c45e;
+    --contrib-0: #f0705a; --contrib-1: #4a4339; --contrib-2: #45c2ae; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #161412; --paper-2: #1e1b18; --card: #211e1a; --ink: #ebe4d6; --ink-2: #b4aa9a; --ink-3: #7d7465;
+  --rule: #3a342d; --accent: #ef6a52; --shadow: 0 1px 0 rgba(0,0,0,.4), 0 10px 30px -14px rgba(0,0,0,.7);
+  --c-semantic_emptiness: #f0705a; --c-repetition: #e7a93a; --c-formulaic_rhetoric: #b38ae0;
+  --c-structure_rhythm: #45c2ae; --c-generic_vocabulary: #6aa2ea; --c-performative_tone: #98c45e;
+  --contrib-0: #f0705a; --contrib-1: #4a4339; --contrib-2: #45c2ae; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55;
+  background-image: radial-gradient(rgba(120,100,70,.07) 1px, transparent 1px); background-size: 4px 4px;
+}
+button, input, select { font: inherit; color: inherit; }
+.mono { font-family: var(--mono); }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 28px; }
+
+/* ---------- Masthead ---------- */
+.mast { border-bottom: 2px solid var(--ink); padding: 22px 0 0; }
+.mast-top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2);
+  border-bottom: 1px solid var(--rule); padding-bottom: 10px; }
+.brand { font-family: var(--display); font-size: 26px; letter-spacing: 0; text-transform: none; color: var(--ink); }
+.brand i { color: var(--accent); }
+.tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn { border: 1px solid var(--rule); background: var(--card); border-radius: 999px; padding: 4px 12px; cursor: pointer;
+  font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; }
+.btn:hover { border-color: var(--ink-3); }
+.btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.verdict { display: grid; grid-template-columns: auto 1fr minmax(320px, 520px); gap: 36px; align-items: center; padding: 26px 0 28px; }
+.score { position: relative; line-height: .8; }
+.score-num { font-family: var(--display); font-size: clamp(96px, 12vw, 168px); letter-spacing: -.03em; }
+.score-num small { font-size: .28em; color: var(--ink-3); letter-spacing: 0; margin-left: 4px; }
+.stamp { display: inline-block; margin: 16px 0 0 6px; transform: rotate(-6deg); font-family: var(--mono); font-weight: 600;
+  font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); border: 2px solid var(--accent);
+  padding: 4px 10px 3px; border-radius: 4px; background: color-mix(in srgb, var(--paper) 70%, transparent);
+  mix-blend-mode: multiply; animation: stamp .5s cubic-bezier(.2,1.6,.4,1) .25s both; }
+:root[data-theme="dark"] .stamp { mix-blend-mode: normal; }
+@keyframes stamp { from { transform: rotate(-6deg) scale(2.2); opacity: 0; } to { transform: rotate(-6deg) scale(1); opacity: 1; } }
+.verdict-text h1 { font-family: var(--display); font-weight: 400; font-size: clamp(28px, 3vw, 40px); line-height: 1.08; margin: 0 0 10px; }
+.verdict-text p { margin: 0; color: var(--ink-2); max-width: 46ch; }
+.meta { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
+.meta b { color: var(--ink); font-weight: 500; }
+
+.dims { display: grid; gap: 7px; }
+.dim { display: grid; grid-template-columns: minmax(0, 1fr) 120px 36px; gap: 10px; align-items: center; cursor: pointer; padding: 2px 4px;
+  border-radius: 6px; transition: background .15s; }
+.dim:hover { background: var(--paper-2); }
+.dim.off { opacity: .35; }
+.dim-label { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dim-label .w { font-family: var(--mono); font-size: 10px; color: var(--ink-3); margin-left: 6px; }
+.dim-label .est { font-family: var(--mono); font-size: 9px; color: var(--ink-3); border: 1px dashed var(--ink-3); border-radius: 3px; padding: 0 3px; margin-left: 4px; }
+.bar { height: 9px; background: var(--paper-2); border-radius: 2px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--rule); }
+.bar i { display: block; height: 100%; background: var(--c); width: 0; transition: width .9s cubic-bezier(.2,.8,.2,1); }
+.dim-val { font-family: var(--mono); font-size: 12px; text-align: right; }
+
+/* ---------- Contribution strip ---------- */
+.strip-wrap { padding: 14px 0 16px; border-bottom: 1px solid var(--rule); }
+.strip-head { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--ink-3);
+  text-transform: uppercase; letter-spacing: .06em; margin-bottom: 6px; gap: 12px; flex-wrap: wrap; }
+.legend { display: flex; gap: 4px 14px; flex-wrap: wrap; }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; background: var(--k); }
+.strip { display: flex; gap: 2px; height: 30px; }
+.strip .cell { flex-basis: 0; min-width: 3px; position: relative; cursor: pointer; border-radius: 1px; background: var(--contrib-1);
+  transition: transform .12s; }
+.strip .cell.c0 { background: var(--contrib-0); }
+.strip .cell.c2 { background: var(--contrib-2); }
+.strip .cell:hover { transform: scaleY(1.25); }
+.strip .cell b { position: absolute; left: 0; right: 0; bottom: -7px; height: 4px; background: var(--ink); opacity: var(--heat); border-radius: 1px; }
+
+/* ---------- Main layout ---------- */
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 440px; gap: 36px; padding-top: 24px; padding-bottom: 60px; }
+.galley-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;
+  font-family: var(--mono); font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: .06em; }
+.galley { background: var(--card); box-shadow: var(--shadow); border: 1px solid var(--rule); border-radius: 3px;
+  padding: 44px 56px 56px; position: relative; }
+.galley::before { content: ""; position: absolute; left: 30px; top: 0; bottom: 0; border-left: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+.doc { white-space: pre-wrap; word-wrap: break-word; font-size: 18.5px; line-height: 1.75; font-variation-settings: "opsz" 18; max-width: 72ch; }
+.doc .md { color: var(--ink-3); }
+.doc .p-heading { font-family: var(--display); font-size: 1.5em; line-height: 1.25; }
+.doc .p-code, .doc .p-table { font-family: var(--mono); font-size: .8em; color: var(--ink-2); }
+.doc .p-quote { font-style: italic; color: var(--ink-2); }
+.hl { background-image: linear-gradient(var(--c), var(--c)); background-repeat: no-repeat; background-position: 0 100%;
+  background-size: 100% var(--t, 2px); padding-bottom: 1px; cursor: pointer; transition: background-color .15s; }
+.hl.multi { background-image: linear-gradient(var(--c), var(--c)), linear-gradient(var(--c2), var(--c2));
+  background-size: 100% var(--t, 2px), 100% 1.5px; background-position: 0 100%, 0 calc(100% - var(--t, 2px) - 2px); }
+.hl:hover, .hl.hot { background-color: color-mix(in srgb, var(--c) 16%, transparent); }
+.hl.dim-low { --c: color-mix(in srgb, var(--ink-3) 70%, transparent); }
+.sel { background-color: color-mix(in srgb, var(--cs) 24%, transparent) !important; border-radius: 2px;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--cs) 50%, transparent); }
+.flash { animation: flash 1.1s ease-out; }
+@keyframes flash { 0% { background-color: color-mix(in srgb, var(--cs) 60%, transparent); } 100% { } }
+.lens .c0 { background-color: color-mix(in srgb, var(--contrib-0) 16%, transparent); }
+.lens .c2 { background-color: color-mix(in srgb, var(--contrib-2) 12%, transparent); }
+.lens .hl { background-image: none; }
+
+/* ---------- Notes column ---------- */
+aside { position: sticky; top: 14px; align-self: start; max-height: calc(100vh - 28px); display: flex; flex-direction: column; }
+.tabs { display: flex; border-bottom: 2px solid var(--ink); }
+.tab { background: none; border: 0; padding: 8px 14px 7px; cursor: pointer; font-family: var(--display); font-size: 22px; color: var(--ink-3); position: relative; }
+.tab[aria-selected="true"] { color: var(--ink); }
+.tab[aria-selected="true"]::after { content: ""; position: absolute; left: 10px; right: 10px; bottom: -2px; height: 4px; background: var(--accent); }
+.tab .n { font-family: var(--mono); font-size: 11px; vertical-align: super; color: var(--ink-3); margin-left: 2px; }
+.panel { overflow: auto; padding: 14px 2px 20px 0; scrollbar-width: thin; }
+.panel[hidden] { display: none; }
+.filters { display: grid; gap: 8px; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { border: 1px solid var(--rule); border-radius: 999px; padding: 2px 9px 2px 7px; font-size: 12px; cursor: pointer; background: var(--card);
+  display: inline-flex; align-items: center; gap: 5px; font-family: var(--mono); }
+.chip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+.chip.off { opacity: .4; text-decoration: line-through; }
+.frow { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; color: var(--ink-2); }
+.frow input[type="search"] { flex: 1; min-width: 120px; border: 1px solid var(--rule); background: var(--card); border-radius: 6px; padding: 5px 9px; font-size: 12px; }
+.frow select { border: 1px solid var(--rule); background: var(--card); border-radius: 6px; padding: 4px 6px; font-size: 12px; }
+.frow label { display: inline-flex; gap: 5px; align-items: center; cursor: pointer; }
+.count-line { font-family: var(--mono); font-size: 11px; color: var(--ink-3); padding: 8px 0 2px; }
+
+.note { background: var(--card); border: 1px solid var(--rule); border-left: 4px solid var(--c); border-radius: 3px; padding: 11px 14px 10px;
+  margin: 10px 0; cursor: pointer; transition: transform .15s, box-shadow .15s; animation: rise .35s ease-out both; }
+.note:hover { transform: translateX(-2px); box-shadow: var(--shadow); }
+.note.active { box-shadow: 0 0 0 2px var(--c), var(--shadow); }
+.note.dismissed { opacity: .5; }
+.note.dismissed .msg { text-decoration: line-through; text-decoration-color: var(--ink-3); }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } }
+.note header { display: flex; align-items: baseline; gap: 8px; }
+.rid { font-family: var(--mono); font-size: 11px; font-weight: 600; color: var(--c); border: 1px solid currentColor; border-radius: 3px; padding: 0 4px; }
+.rname { font-weight: 600; font-size: 15px; flex: 1; line-height: 1.25; }
+.sev { font-family: var(--mono); font-size: 10px; letter-spacing: 1px; color: var(--c); white-space: nowrap; }
+.sev i { font-style: normal; opacity: .22; }
+.note blockquote { margin: 7px 0 6px; padding: 2px 0 2px 10px; border-left: 2px solid var(--rule); font-style: italic; color: var(--ink-2); font-size: 14.5px;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.note .msg { margin: 0; font-size: 14.5px; }
+.note .ev { margin: 3px 0 0; font-size: 13.5px; color: var(--ink-2); }
+.note .fix { margin: 6px 0 0; font-size: 13.5px; }
+.note .fix b { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; background: var(--ink); color: var(--card); padding: 1px 5px; border-radius: 2px; margin-right: 6px; font-weight: 500; }
+.note footer { margin-top: 7px; display: flex; flex-wrap: wrap; gap: 4px 10px; font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); }
+.badge { border: 1px solid var(--rule); border-radius: 3px; padding: 0 4px; }
+.badge.llm { border-color: var(--c-formulaic_rhetoric); color: var(--c-formulaic_rhetoric); }
+.badge.ok { border-color: var(--contrib-2); color: var(--contrib-2); }
+.badge.no { border-color: var(--accent); color: var(--accent); }
+.empty { padding: 40px 10px; text-align: center; color: var(--ink-3); font-style: italic; }
+
+/* Metrics + rules */
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-bottom: 18px; }
+.stat { background: var(--card); padding: 10px 12px; }
+.stat .k { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); }
+.stat .v { font-family: var(--display); font-size: 30px; line-height: 1.1; }
+.stat .v small { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+h3 { font-family: var(--display); font-weight: 400; font-size: 22px; margin: 18px 0 6px; }
+.hint { font-size: 13px; color: var(--ink-2); margin: 0 0 8px; }
+svg.chart { width: 100%; height: 150px; display: block; background: var(--card); border: 1px solid var(--rule); }
+svg.chart rect { cursor: pointer; }
+svg.chart rect:hover { opacity: .7; }
+.rules-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.rules-table td { border-bottom: 1px solid var(--rule); padding: 7px 4px; vertical-align: top; }
+.rules-table tr.hit td { background: color-mix(in srgb, var(--c) 7%, transparent); }
+.rules-table .rid { white-space: nowrap; }
+.rules-table .d { color: var(--ink-2); font-size: 12.5px; }
+.rules-table .cnt { font-family: var(--mono); text-align: right; white-space: nowrap; }
+.llm-box { border: 1px dashed var(--c-formulaic_rhetoric); border-radius: 4px; padding: 10px 12px; margin: 10px 0 4px; font-size: 14px; }
+.llm-box .k { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--c-formulaic_rhetoric); }
+.err { color: var(--accent); font-family: var(--mono); font-size: 12px; }
+
+/* Tooltip */
+#tip { position: fixed; z-index: 50; pointer-events: none; max-width: 340px; background: var(--ink); color: var(--paper); border-radius: 4px;
+  padding: 8px 10px; font-size: 13px; line-height: 1.35; box-shadow: 0 10px 30px -10px rgba(0,0,0,.5); opacity: 0; transform: translateY(4px);
+  transition: opacity .12s, transform .12s; }
+#tip.on { opacity: 1; transform: none; }
+#tip .t-row { display: flex; gap: 7px; align-items: baseline; padding: 2px 0; }
+#tip .t-id { font-family: var(--mono); font-size: 10.5px; font-weight: 600; color: var(--c); filter: brightness(1.35); }
+#tip .t-hint { font-family: var(--mono); font-size: 10px; opacity: .6; margin-top: 4px; }
+
+.kbd { font-family: var(--mono); font-size: 10.5px; color: var(--ink-3); }
+.kbd kbd { border: 1px solid var(--rule); border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; font-family: inherit; background: var(--card); }
+footer.page { border-top: 1px solid var(--rule); padding: 18px 0 30px; font-family: var(--mono); font-size: 11px; color: var(--ink-3); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+.reveal { animation: rise .6s ease-out both; }
+.reveal.d1 { animation-delay: .05s; } .reveal.d2 { animation-delay: .12s; } .reveal.d3 { animation-delay: .2s; }
+
+@media (max-width: 1100px) {
+  .verdict { grid-template-columns: auto minmax(0, 1fr); }
+  .dims { grid-column: 1 / -1; }
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  aside { position: static; max-height: none; }
+}
+@media (max-width: 640px) {
+  .wrap { padding: 0 16px; }
+  .verdict { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .galley-bar .kbd { display: none; }
+  .galley { padding: 26px 20px 30px 28px; }
+  .galley::before { left: 14px; }
+  .doc { font-size: 17px; }
+  .dim { grid-template-columns: minmax(0, 1fr) 80px 32px; }
+}
+@media print {
+  body { background: #fff; }
+  .tools, .filters, .galley-bar .kbd, .tabs, #tip { display: none !important; }
+  .layout { grid-template-columns: 1fr; }
+  aside { position: static; max-height: none; }
+  .panel[hidden] { display: block; }
+  .galley { box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top">
+      <span class="brand">AI-isms <i>Scanner</i></span>
+      <span id="source"></span>
+      <div class="tools">
+        <button class="btn" id="lensBtn" aria-pressed="false" title="Tint sentences by semantic contribution (L)">Contribution lens</button>
+        <button class="btn" id="themeBtn" title="Cycle theme">Theme: auto</button>
+        <button class="btn" id="jsonBtn" title="Download the raw report as JSON">Export JSON</button>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="score reveal">
+        <div class="score-num" id="scoreNum"></div>
+        <div class="stamp" id="stamp"></div>
+      </div>
+      <div class="verdict-text reveal d1">
+        <h1 id="headline"></h1>
+        <p id="blurb"></p>
+        <div class="meta" id="meta"></div>
+      </div>
+      <div class="dims reveal d2" id="dims"></div>
+    </div>
+    <div class="strip-wrap reveal d3">
+      <div class="strip-head">
+        <span>Sentence-by-sentence contribution <span id="contribSrc"></span></span>
+        <span class="legend">
+          <span style="--k: var(--contrib-2)">substantive</span>
+          <span style="--k: var(--contrib-1)">supporting</span>
+          <span style="--k: var(--contrib-0)">non-contributing</span>
+          <span style="--k: var(--ink)">▁ finding density</span>
+        </span>
+      </div>
+      <div class="strip" id="strip"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap layout">
+  <section>
+    <div class="galley-bar">
+      <span id="galleyInfo">Galley proof</span>
+      <span class="kbd"><kbd>j</kbd>/<kbd>k</kbd> next / prev · <kbd>/</kbd> search · <kbd>L</kbd> lens · <kbd>esc</kbd> clear</span>
+    </div>
+    <div class="galley"><div class="doc" id="doc"></div></div>
+  </section>
+
+  <aside>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-tab="notes">Notes<span class="n" id="nNotes"></span></button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="metrics">Metrics</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="rules">Rules<span class="n" id="nRules"></span></button>
+    </div>
+    <div class="panel" id="panel-notes">
+      <div id="llmBox"></div>
+      <div class="filters">
+        <div class="chips" id="chips"></div>
+        <div class="frow">
+          <input type="search" id="q" placeholder="Filter by rule, text, message…">
+          <select id="sort"><option value="pos">By position</option><option value="sev">By impact</option><option value="rule">By rule</option></select>
+        </div>
+        <div class="frow">
+          <label>Min severity <select id="minSev"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></label>
+          <label>Detector <select id="det"><option value="">all</option><option value="local">local</option><option value="llm">LLM</option></select></label>
+          <label><input type="checkbox" id="showDismissed"> dismissed</label>
+        </div>
+      </div>
+      <div class="count-line" id="countLine"></div>
+      <div id="notes"></div>
+    </div>
+    <div class="panel" id="panel-metrics" hidden></div>
+    <div class="panel" id="panel-rules" hidden></div>
+  </aside>
+</main>
+
+<div class="wrap"><footer class="page"><span id="foot"></span><span>Findings are advisory: a rule match is not proof of AI authorship.</span></footer></div>
+<div id="tip" role="tooltip"></div>
+
+<script id="report-data" type="application/json">{"version":1,"text":"We moved our build cache from S3 to a local NVMe volume on the CI runners in March. Cold builds went from 14 minutes to just under 9, mostly because the dependency layer no longer has to come over the network on every job.\n\nThe catch was eviction. Our first version used a plain LRU with a 200 GB cap, and the monorepo's Rust targets alone are about 140 GB, so any branch that touched the protobuf definitions flushed almost everything else. We switched to a two-tier policy: anything built from `main` in the last 48 hours is pinned, and feature branches compete for the remaining 60 GB. That cut cache misses on `main` from roughly one in four to one in twenty.\n\nTwo things I'd do differently. I would measure hit rate per target before choosing a cap, rather than guessing from total disk usage; and I would not have put the eviction logic in a bash cron job. It worked, but when Priya tried to add metrics she had to rewrite it in Go anyway.\n\nIf you run something similar, watch the runner's disk-full alerts for the first week. Ours fired twice, both times because a runaway test wrote 30 GB of logs into the cache directory.\n","config":{"profile":"general","profile_description":"Balanced defaults for essays, posts and general prose.","disabled":[],"only":null,"source":"specific.md","version":"0.1.0","generated":"2026-10-17 13:59:57"},"scores":{"overall":0.0,"band":"Clean","band_blurb":"Few or no AI-isms detected","dimensions":{"semantic_emptiness":{"score":0.0,"points":0.0,"weight":0.3,"count":0,"estimated":true},"repetition":{"score":0.0,"points":0.0,"weight":0.2,"count":0,"estimated":true},"formulaic_rhetoric":{"score":0.0,"points":0.0,"weight":0.15,"count":0,"estimated":false},"structure_rhythm":{"score":0.0,"points":0.0,"weight":0.15,"count":0,"estimated":false},"generic_vocabulary":{"score":0.0,"points":0.0,"weight":0.1,"count":0,"estimated":false},"performative_tone":{"score":0.0,"points":0.0,"weight":0.1,"count":0,"estimated":false}},"top_rules":[],"noncontributing_share":0.0,"confidence":"medium","bands":[{"max":12,"name":"Clean","blurb":"Few or no AI-isms detected"},{"max":25,"name":"Light","blurb":"Isolated patterns; mostly stylistic"},{"max":45,"name":"Noticeable","blurb":"Repeated patterns materially affect quality"},{"max":65,"name":"Heavy","blurb":"Pervasive formulaic writing"},{"max":101,"name":"Saturated","blurb":"Reads like unedited AI output"}]},"metrics":{"words":207,"sentences":11,"prose_sentences":11,"paragraphs":4,"mean_sentence_words":18.8,"sentence_words_stdev":9.3,"sentence_length_cv":0.495,"sentence_lengths":[{"i":0,"n":18},{"i":1,"n":26},{"i":2,"n":4},{"i":3,"n":34},{"i":4,"n":25},{"i":5,"n":14},{"i":6,"n":5},{"i":7,"n":32},{"i":8,"n":17},{"i":9,"n":14},{"i":10,"n":18}],"em_dashes":0,"em_dashes_per_250":0.0,"ai_vocab_hits":0,"ai_vocab_per_1000":0.0,"specifics_per_sentence":1.55,"abstract_noun_share":0.0,"lexical_diversity_mattr":0.886,"flesch_reading_ease":68.1,"contribution":{"0":0,"1":2,"2":9},"markdown":{"headings":0,"bold":0,"list_items":0,"emoji":0,"tables":0,"code_blocks":0,"quotes":0,"bold_lead_items":0,"emoji_lead_lines":0},"elapsed_ms":4.4},"findings":[],"sentences":[{"index":0,"start":0,"end":83,"contribution":2,"source":"local","reason":"Adds new terms with concrete detail","words":18},{"index":1,"start":84,"end":222,"contribution":2,"source":"local","reason":"Adds new terms with concrete detail","words":26},{"index":2,"start":224,"end":247,"contribution":1,"source":"local","reason":"Supporting / partly new","words":4},{"index":3,"start":248,"end":441,"contribution":2,"source":"local","reason":"Adds new terms with concrete detail","words":34},{"index":4,"start":442,"end":588,"contribution":2,"source":"local","reason":"Adds new terms with concrete detail","words":25},{"index":5,"start":589,"end":663,"contribution":2,"source":"local","reason":"Adds new terms with concrete detail","words":14},{"index":6,"start":665,"end":695,"contribution":1,"source":"local","reason":"Supporting / partly new","words":5},{"index":7,"start":696,"end":862,"contribution":2,"source":"local","reason":"Adds new terms","words":32},{"index":8,"start":863,"end":945,"contribution":2,"source":"local","reason":"Adds new terms with concrete detail","words":17},{"index":9,"start":947,"end":1032,"contribution":2,"source":"local","reason":"Adds new terms","words":14},{"index":10,"start":1033,"end":1130,"contribution":2,"source":"local","reason":"Adds new terms with concrete detail","words":18}],"rules":{"R01":{"id":"R01","name":"Artificial negation/contrast","category":"formulaic_rhetoric","severity":3,"description":"Framing a point as a correction of something nobody claimed (\"It's not X, it's Y\"). Occasional use is fine; repetition makes it conspicuous.","suggestion":"State the substantive claim directly instead of contrasting it with a strawman.","action":"clarify","detector":"pattern","llm_only":false},"R02":{"id":"R02","name":"Rhetorical question immediately answered","category":"formulaic_rhetoric","severity":3,"description":"A short question posed only to be answered in the next sentence (\"The result? ...\").","suggestion":"Make the statement directly; keep questions for genuine uncertainty.","action":"remove","detector":"pattern","llm_only":false},"R03":{"id":"R03","name":"Forced triplets / rule-of-three","category":"formulaic_rhetoric","severity":2,"description":"Habitual three-part lists and three-fragment slogans (\"Faster. Smarter. Better.\").","suggestion":"Keep the items that carry information; vary list length.","action":"vary","detector":"pattern","llm_only":false},"R04":{"id":"R04","name":"Manufactured revelation","category":"formulaic_rhetoric","severity":3,"description":"Teasing an insight before delivering it (\"Here's what most people miss\").","suggestion":"Delete the teaser and lead with the insight itself.","action":"remove","detector":"pattern","llm_only":false},"R05":{"id":"R05","name":"Dramatic one-line conclusion","category":"formulaic_rhetoric","severity":3,"description":"A short, portentous sentence that closes a paragraph without adding meaning (\"And that changes everything.\").","suggestion":"Cut it, or replace it with the concrete consequence you mean.","action":"remove","detector":"pattern","llm_only":false},"R06":{"id":"R06","name":"Repeated binary framing","category":"formulaic_rhetoric","severity":3,"description":"Multiple X-versus-Y or not-X-but-Y constructions across paragraphs; everything becomes a dichotomy.","suggestion":"Keep the one contrast that matters; describe the rest on its own terms.","action":"vary","detector":"pattern","llm_only":false},"L01":{"id":"L01","name":"AI-associated vocabulary cluster","category":"generic_vocabulary","severity":2,"description":"Several words that are over-represented in LLM output (delve, tapestry, pivotal, seamless…) concentrated in a short window. Single words are never flagged.","suggestion":"Swap the cluster for plain, specific words; ask what each one actually means here.","action":"vary","detector":"lexical","llm_only":false},"L02":{"id":"L02","name":"Corporate buzzword stacking","category":"generic_vocabulary","severity":3,"description":"Several vague evaluative adjectives in a row (\"seamless, scalable, and innovative\") with no concrete qualification.","suggestion":"Replace adjectives with the measurable property they gesture at (latency, price, steps saved).","action":"substantiate","detector":"lexical","llm_only":false},"L03":{"id":"L03","name":"Generic scene-setting introduction","category":"generic_vocabulary","severity":3,"description":"Throat-clearing openers (\"In today's rapidly evolving landscape…\") that delay the point.","suggestion":"Delete the opener and start with your first concrete claim.","action":"remove","detector":"pattern","llm_only":false},"L04":{"id":"L04","name":"Empty intensifiers","category":"generic_vocabulary","severity":1,"description":"Adverbs like truly, fundamentally, incredibly that add emphasis but no meaning, at high density.","suggestion":"Delete them; if the sentence feels weak without them, strengthen the claim with evidence.","action":"remove","detector":"lexical","llm_only":false},"L05":{"id":"L05","name":"Stock transitional phrase","category":"generic_vocabulary","severity":1,"description":"Filler connectives (\"It's worth noting\", \"That said\", \"Moreover,\") that signal structure without adding any.","suggestion":"Cut the transition; let the logical relationship come from the content.","action":"remove","detector":"pattern","llm_only":false},"L06":{"id":"L06","name":"Decorative / cliché metaphor","category":"generic_vocabulary","severity":2,"description":"Stock figurative language (tapestry, north star, double-edged sword) that decorates rather than clarifies.","suggestion":"Say the literal thing. Keep a metaphor only if it explains something a literal phrase can't.","action":"clarify","detector":"pattern","llm_only":false},"S01":{"id":"S01","name":"Excessive em-dash usage","category":"structure_rhythm","severity":1,"description":"Em dashes used far more often than typical prose. One or two are fine; a dash in every other sentence is a tic.","suggestion":"Use commas, colons, parentheses or a full stop for most of them.","action":"vary","detector":"statistical","llm_only":false},"S02":{"id":"S02","name":"Staccato rhythm","category":"structure_rhythm","severity":3,"description":"Runs of very short sentences or one-line paragraphs used for drama (\"It works. It scales. It ships.\").","suggestion":"Combine related fragments into fuller sentences; save short ones for real emphasis.","action":"vary","detector":"statistical","llm_only":false},"S03":{"id":"S03","name":"Uniform sentence length","category":"structure_rhythm","severity":3,"description":"Sentence lengths with unusually low variation: a metronomic rhythm readers notice even when they can't name it.","suggestion":"Mix long and short sentences deliberately; let complex ideas take longer sentences.","action":"vary","detector":"statistical","llm_only":false},"S04":{"id":"S04","name":"Identical paragraph architecture","category":"structure_rhythm","severity":4,"description":"Paragraphs built from the same template: same number of sentences, same opener, same short punchline at the end.","suggestion":"Let paragraph shape follow content; not every paragraph needs a closing zinger.","action":"vary","detector":"statistical","llm_only":false},"S05":{"id":"S05","name":"Unnecessary bolding, headings or emoji","category":"structure_rhythm","severity":2,"description":"Formatting density out of proportion to the text: bold every few words, headings over two-line sections, emoji bullets.","suggestion":"Reserve bold for the one thing a skimmer must not miss; merge thin sections.","action":"remove","detector":"statistical","llm_only":false},"S06":{"id":"S06","name":"Excessive listification","category":"structure_rhythm","severity":2,"description":"Content chopped into bullets where connected prose would carry the reasoning better.","suggestion":"Turn related bullets into a paragraph that states how the points connect.","action":"consolidate","detector":"statistical","llm_only":false},"S07":{"id":"S07","name":"Repeated sentence starters","category":"structure_rhythm","severity":1,"description":"Three or more nearby sentences opening the same way (\"This… This… This…\").","suggestion":"Vary openings, or merge the sentences so the shared subject appears once.","action":"vary","detector":"statistical","llm_only":false},"C01":{"id":"C01","name":"Says little despite its length","category":"semantic_emptiness","severity":4,"description":"A long sentence built from abstractions (solutions, opportunities, innovation, growth) with no concrete subject, mechanism, example or number.","suggestion":"Name who does what, how, and with what measurable result, or cut the sentence.","action":"substantiate","detector":"semantic-local","llm_only":false},"C02":{"id":"C02","name":"Tautology","category":"semantic_emptiness","severity":4,"description":"A conclusion that restates its premise (\"X matters because it is important\"; \"it is what it is\").","suggestion":"Supply the actual reason, consequence or evidence.","action":"substantiate","detector":"semantic-local","llm_only":false},"C03":{"id":"C03","name":"Unsupported sweeping claim","category":"semantic_emptiness","severity":4,"description":"Grand claims (\"changes everything\", \"unprecedented\", \"the future of work\") with no support in the surrounding text.","suggestion":"Scope the claim and back it with a number, source or example, or soften it to what you can show.","action":"substantiate","detector":"semantic-local","llm_only":false},"C04":{"id":"C04","name":"Vague referents and actors","category":"semantic_emptiness","severity":2,"description":"Heavy reliance on \"things\", \"people\", \"solutions\", \"various factors\" instead of identifiable subjects.","suggestion":"Name the specific people, objects, or factors.","action":"clarify","detector":"lexical","llm_only":false},"C05":{"id":"C05","name":"Manufactured significance","category":"semantic_emptiness","severity":3,"description":"Labelling an ordinary development as historic, groundbreaking or game-changing.","suggestion":"Describe what changed and let the reader judge its importance.","action":"clarify","detector":"pattern","llm_only":false},"C06":{"id":"C06","name":"Abstract filler instead of specifics","category":"semantic_emptiness","severity":4,"description":"Several consecutive sentences with no examples, facts, mechanisms or useful distinctions.","suggestion":"Add one concrete example, number, or mechanism per claim, or compress the run to a single sentence.","action":"substantiate","detector":"semantic-local","llm_only":false},"C07":{"id":"C07","name":"Generic recommendation","category":"semantic_emptiness","severity":3,"description":"Advice that could be pasted into any context unchanged (\"Stay curious\", \"Communicate clearly\", \"It's essential to…\").","suggestion":"Make it specific to this situation: what exactly to do, when, and how to tell it worked.","action":"substantiate","detector":"semantic-local","llm_only":false},"D01":{"id":"D01","name":"Near-duplicate sentence","category":"repetition","severity":4,"description":"Two sentences that make the same point in nearly the same words.","suggestion":"Keep the stronger sentence and delete the other.","action":"consolidate","detector":"lexical","llm_only":false},"D02":{"id":"D02","name":"Paragraph adds little new information","category":"repetition","severity":4,"description":"A paragraph whose content words almost all appeared earlier: it re-describes rather than develops.","suggestion":"Merge it into the earlier paragraph or replace it with something new (an example, a consequence, a caveat).","action":"consolidate","detector":"lexical","llm_only":false},"D03":{"id":"D03","name":"Unnecessary recap","category":"repetition","severity":3,"description":"A closing summary that repeats what was just said, without serving a structural need (e.g. in a short text).","suggestion":"Cut the recap, or end on a new implication, next step, or open question.","action":"remove","detector":"lexical","llm_only":false},"D04":{"id":"D04","name":"Verbose restatement","category":"repetition","severity":1,"description":"Wordy phrasing with a shorter equivalent (\"in order to\" → \"to\", \"due to the fact that\" → \"because\").","suggestion":"Use the shorter form.","action":"remove","detector":"lexical","llm_only":false},"D05":{"id":"D05","name":"Circular reasoning","category":"repetition","severity":4,"description":"An argument that keeps returning to an unsupported premise instead of building on evidence.","suggestion":"Identify the premise and support it, or drop the argument.","action":"substantiate","detector":"llm","llm_only":true},"T01":{"id":"T01","name":"Unsolicited validation","category":"performative_tone","severity":3,"description":"Praise for the question or the reader (\"Great question!\", \"You're absolutely right\") with no relevant reason.","suggestion":"Delete it and answer directly.","action":"remove","detector":"pattern","llm_only":false},"T02":{"id":"T02","name":"False profundity","category":"performative_tone","severity":3,"description":"Inspirational or philosophical conclusions not earned by the material (\"It's a journey, not a destination\").","suggestion":"End on the concrete takeaway instead of a maxim.","action":"remove","detector":"pattern","llm_only":false},"T03":{"id":"T03","name":"Artificial emotional intensity","category":"performative_tone","severity":3,"description":"Exaggerated enthusiasm or drama unrelated to the task: exclamation marks, hype words, emoji in prose.","suggestion":"Let the content carry the excitement; remove hype words and most exclamation marks.","action":"remove","detector":"lexical","llm_only":false},"T04":{"id":"T04","name":"Performative honesty","category":"performative_tone","severity":2,"description":"Announcing candour (\"I'll be completely honest\", \"No sugarcoating\") instead of simply being candid.","suggestion":"Drop the announcement; the statement is either honest or it isn't.","action":"remove","detector":"pattern","llm_only":false},"T05":{"id":"T05","name":"Excessive hedging or false balance","category":"performative_tone","severity":3,"description":"Stacked qualifiers, or refusing a warranted conclusion with \"it depends\" / \"there's no one-size-fits-all\".","suggestion":"Commit to the conclusion the evidence supports, and state the specific condition under which it changes.","action":"clarify","detector":"pattern","llm_only":false},"T06":{"id":"T06","name":"Inappropriate conversational familiarity","category":"performative_tone","severity":2,"description":"Chatty or reassuring asides (\"Let's dive in!\", \"Don't worry\", \"I hope this helps\") in technical, formal or factual writing.","suggestion":"Remove the aside; keep the information.","action":"remove","detector":"pattern","llm_only":false}},"dimensions":{"semantic_emptiness":{"label":"Semantic emptiness","weight":0.3,"blurb":"Vague claims, low information density, tautology, unsupported generalizations"},"repetition":{"label":"Repetition & redundancy","weight":0.2,"blurb":"Repeated ideas, unnecessary restatements, circular explanation"},"formulaic_rhetoric":{"label":"Formulaic rhetoric","weight":0.15,"blurb":"Artificial contrasts, question-answer hooks, rhetorical templates"},"structure_rhythm":{"label":"Mechanical structure & rhythm","weight":0.15,"blurb":"Predictable cadence, repetitive paragraph structures, unnatural formatting"},"generic_vocabulary":{"label":"Generic vocabulary & clichés","weight":0.1,"blurb":"Corporate buzzwords, stock transitions, decorative metaphors"},"performative_tone":{"label":"Performative tone","weight":0.1,"blurb":"Unsolicited praise, contrived profundity, exaggerated emotional framing"}},"llm":null,"paragraphs":[{"start":0,"end":222,"kind":"prose","level":0},{"start":224,"end":663,"kind":"prose","level":0},{"start":665,"end":945,"kind":"prose","level":0},{"start":947,"end":1130,"kind":"prose","level":0}]}</script>
+<script>
+(() => {
+"use strict";
+const D = JSON.parse(document.getElementById("report-data").textContent);
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const cssVar = k => `var(--c-${k})`;
+const MAX_INLINE = 420; // spans longer than this are only highlighted when selected
+const MAX_INLINE_WIDE = 160; // tighter limit for paragraph/section/document-scope findings
+const text = D.text;
+const rules = D.rules;
+const dims = D.dimensions;
+
+const state = {
+  cats: new Set(Object.keys(dims)), minSev: 1, det: "", q: "", sort: "pos",
+  showDismissed: false, lens: false, selected: null,
+};
+try { const t = localStorage.getItem("ai-isms.theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+
+// Python offsets count code points; JS strings index UTF-16 units. Convert once (identity without emoji etc.).
+const CP = (() => { const m = []; let u = 0; for (const ch of text) { m.push(u); u += ch.length; } m.push(u); return m; })();
+const U = i => CP[Math.max(0, Math.min(i, CP.length - 1))];
+const conv = o => ({ ...o, start: U(o.start), end: U(o.end) });
+const PARAS = D.paragraphs.map(conv);
+const SENTS = D.sentences.map(conv);
+const findings = D.findings.map(f => ({ ...f, spans: f.spans.map(conv), dismissed: !!(f.review && f.review.verdict === "dismiss"),
+  impact: f.severity * f.confidence * (f.weight || 0) }));
+const byId = Object.fromEntries(findings.map(f => [f.id, f]));
+
+function visible(f) {
+  if (!state.cats.has(f.category)) return false;
+  if (f.severity < state.minSev) return false;
+  if (state.det === "llm" && f.detector !== "llm") return false;
+  if (state.det === "local" && f.detector === "llm") return false;
+  if (f.dismissed && !state.showDismissed) return false;
+  if (state.q) {
+    const r = rules[f.rule_id] || {};
+    const hay = `${f.rule_id} ${r.name} ${f.message} ${f.excerpt} ${f.evidence} ${f.suggestion}`.toLowerCase();
+    if (!hay.includes(state.q)) return false;
+  }
+  return true;
+}
+
+/* ---------- Masthead ---------- */
+function renderMast() {
+  const S = D.scores, M = D.metrics, C = D.config;
+  $("#scoreNum").innerHTML = S.overall == null ? "—" : `${Math.round(S.overall)}<small>/100</small>`;
+  $("#stamp").textContent = S.band;
+  $("#headline").textContent = S.band_blurb;
+  const top = (S.top_rules || []).slice(0, 3).map(r => rules[r.rule_id]?.name).filter(Boolean);
+  let blurb = top.length ? `Biggest contributors: ${top.join(", ").toLowerCase()}.` : "No significant patterns found.";
+  if (D.llm && D.llm.summary) blurb = D.llm.summary;
+  $("#blurb").textContent = blurb;
+  const mode = D.llm ? (D.llm.ok ? `local + ${D.llm.model}` : "local (LLM failed)") : "local only";
+  $("#meta").innerHTML = [
+    ["words", M.words], ["sentences", M.sentences], ["profile", C.profile], ["mode", mode],
+    ["confidence", S.confidence], ["time", `${M.elapsed_ms} ms`],
+  ].map(([k, v]) => `<span>${k} <b>${esc(v)}</b></span>`).join("");
+  $("#source").textContent = C.source || "";
+  $("#foot").textContent = `AI-isms Scanner ${C.version} · generated ${C.generated} · ${Object.keys(rules).length} rules`;
+  document.title = `AI-isms · ${S.overall == null ? "ungraded" : Math.round(S.overall)} · ${C.source || "report"}`;
+
+  const box = $("#dims");
+  box.innerHTML = Object.entries(dims).map(([k, d]) => {
+    const v = S.dimensions[k];
+    return `<div class="dim" data-cat="${k}" title="${esc(d.blurb)}" style="--c:${cssVar(k)}">
+      <span class="dim-label">${esc(d.label)}<span class="w">×${Math.round(d.weight * 100)}%</span>${v.estimated ? '<span class="est" title="Estimated with local heuristics; run with --llm for a semantic check">est.</span>' : ""}</span>
+      <span class="bar"><i data-w="${v.score}"></i></span>
+      <span class="dim-val">${Math.round(v.score)}</span></div>`;
+  }).join("");
+  requestAnimationFrame(() => box.querySelectorAll(".bar i").forEach(i => { i.style.width = Math.max(1.5, +i.dataset.w) + "%"; }));
+  box.addEventListener("click", e => {
+    const el = e.target.closest(".dim"); if (!el) return;
+    const k = el.dataset.cat;
+    // Click isolates a category; click again restores all.
+    if (state.cats.size === 1 && state.cats.has(k)) state.cats = new Set(Object.keys(dims));
+    else state.cats = new Set([k]);
+    renderAll();
+  });
+}
+
+/* ---------- Contribution strip ---------- */
+function renderStrip() {
+  const heat = {};
+  for (const f of findings) {
+    if (f.dismissed || f.scope === "document") continue;
+    for (const sp of f.spans) {
+      // Binary search for the first sentence ending after the span starts.
+      let lo = 0, hi = SENTS.length;
+      while (lo < hi) { const mid = (lo + hi) >> 1; if (SENTS[mid].end <= sp.start) lo = mid + 1; else hi = mid; }
+      for (let k = lo; k < SENTS.length && SENTS[k].start < sp.end; k++) {
+        const s = SENTS[k]; heat[s.index] = (heat[s.index] || 0) + f.severity * f.confidence;
+      }
+    }
+  }
+  const maxH = Math.max(1, ...Object.values(heat));
+  const src = D.sentences.some(s => s.source === "llm") ? "(rated by LLM)" : "(estimated locally)";
+  $("#contribSrc").textContent = src;
+  $("#strip").innerHTML = D.sentences.map(s =>
+    `<div class="cell c${s.contribution}" data-s="${s.index}" style="flex-grow:${Math.max(2, s.words)};--heat:${((heat[s.index] || 0) / maxH).toFixed(2)}"
+      title="S${s.index + 1} · ${["non-contributing", "supporting", "substantive"][s.contribution]} — ${esc(s.reason)}"><b></b></div>`).join("");
+}
+$("#strip").addEventListener("click", e => {
+  const c = e.target.closest(".cell"); if (!c) return;
+  const seg = $(`#doc [data-s="${c.dataset.s}"]`);
+  if (seg) { seg.scrollIntoView({ behavior: "smooth", block: "center" }); flashEls([...document.querySelectorAll(`#doc [data-s="${c.dataset.s}"]`)], "var(--accent)"); }
+});
+
+/* ---------- Document rendering ---------- */
+function renderDoc() {
+  const vis = findings.filter(visible);
+  const sel = state.selected ? byId[state.selected] : null;
+  const bounds = new Set([0, text.length]);
+  for (const p of PARAS) { bounds.add(p.start); bounds.add(p.end); }
+  for (const s of SENTS) { bounds.add(s.start); bounds.add(s.end); }
+  const inlineSpans = [];
+  for (const f of vis) for (const sp of f.spans) {
+    const len = sp.end - sp.start;
+    if (len <= (f.scope === "span" || f.scope === "sentence" ? MAX_INLINE : MAX_INLINE_WIDE)) { inlineSpans.push([sp.start, sp.end, f]); bounds.add(sp.start); bounds.add(sp.end); }
+  }
+  if (sel) for (const sp of sel.spans) { bounds.add(sp.start); bounds.add(sp.end); }
+  const pts = [...bounds].filter(x => x >= 0 && x <= text.length).sort((a, b) => a - b);
+  inlineSpans.sort((x, y) => x[0] - y[0]);
+
+  let html = "", pi = 0, si = 0, ni = 0, active = [];
+  const paras = PARAS, sents = SENTS;
+  for (let k = 0; k < pts.length - 1; k++) {
+    const a = pts[k], b = pts[k + 1];
+    if (a === b) continue;
+    while (pi < paras.length && paras[pi].end <= a) pi++;
+    while (si < sents.length && sents[si].end <= a) si++;
+    const para = pi < paras.length && paras[pi].start <= a && b <= paras[pi].end ? paras[pi] : null;
+    const sent = si < sents.length && sents[si].start <= a && b <= sents[si].end ? sents[si] : null;
+    // Sweep line: admit spans that have started, drop spans that have ended.
+    while (ni < inlineSpans.length && inlineSpans[ni][0] <= a) active.push(inlineSpans[ni++]);
+    active = active.filter(x => x[1] > a);
+    const act = active.filter(([s, e]) => s <= a && e >= b).map(x => x[2]);
+    const isSel = sel && sel.spans.some(sp => sp.start <= a && sp.end >= b);
+    const cls = [];
+    let style = "", attrs = "";
+    cls.push(para ? `p-${para.kind}` : "md");
+    if (sent) { cls.push(`c${sent.contribution}`); attrs += ` data-s="${sent.index}"`; }
+    if (act.length) {
+      act.sort((x, y) => (y.severity * y.confidence) - (x.severity * x.confidence));
+      const top = act[0];
+      const cats = [...new Set(act.map(f => f.category))];
+      cls.push("hl");
+      if (cats.length > 1) { cls.push("multi"); style += `--c2:${cssVar(cats[1])};`; }
+      if (top.dismissed || top.confidence < 0.45) cls.push("dim-low");
+      const thick = top.scope === "span" ? 1 + top.severity * 0.6 : 1.4;
+      style += `--c:${cssVar(top.category)};--t:${thick.toFixed(1)}px;`;
+      attrs += ` data-f="${act.map(f => f.id).join(" ")}"`;
+    }
+    if (isSel) { cls.push("sel"); style += `--cs:${cssVar(sel.category)};`; }
+    html += `<span class="${cls.join(" ")}"${style ? ` style="${style}"` : ""}${attrs}>${esc(text.slice(a, b))}</span>`;
+  }
+  const doc = $("#doc");
+  doc.innerHTML = html;
+  doc.classList.toggle("lens", state.lens);
+  $("#galleyInfo").textContent = `Galley proof · ${vis.length} finding${vis.length === 1 ? "" : "s"} marked`;
+}
+
+/* ---------- Notes ---------- */
+const ACTION_LABEL = { remove: "Remove", clarify: "Clarify", consolidate: "Consolidate", substantiate: "Substantiate", vary: "Vary", review: "Review" };
+function sevDots(n) { return "●".repeat(n) + `<i>${"●".repeat(5 - n)}</i>`; }
+
+function renderChips() {
+  const counts = {};
+  for (const f of findings) if (!f.dismissed || state.showDismissed) counts[f.category] = (counts[f.category] || 0) + 1;
+  $("#chips").innerHTML = Object.entries(dims).map(([k, d]) =>
+    `<span class="chip ${state.cats.has(k) ? "" : "off"}" data-cat="${k}" style="--c:${cssVar(k)}">${esc(d.label.split(" ")[0])} ${counts[k] || 0}</span>`).join("");
+  document.querySelectorAll(".dim").forEach(el => el.classList.toggle("off", !state.cats.has(el.dataset.cat)));
+}
+$("#chips").addEventListener("click", e => {
+  const c = e.target.closest(".chip"); if (!c) return;
+  const k = c.dataset.cat;
+  state.cats.has(k) ? state.cats.delete(k) : state.cats.add(k);
+  renderAll();
+});
+
+function sortedVisible() {
+  const vis = findings.filter(visible);
+  if (state.sort === "sev") vis.sort((a, b) => b.impact - a.impact);
+  else if (state.sort === "rule") vis.sort((a, b) => a.rule_id.localeCompare(b.rule_id) || a.spans[0].start - b.spans[0].start);
+  else vis.sort((a, b) => (a.spans[0]?.start ?? 0) - (b.spans[0]?.start ?? 0));
+  return vis;
+}
+
+function renderNotes() {
+  const vis = sortedVisible();
+  $("#nNotes").textContent = findings.filter(f => !f.dismissed).length;
+  const dismissed = findings.filter(f => f.dismissed).length;
+  $("#countLine").textContent = `${vis.length} of ${findings.length} shown` + (dismissed ? ` · ${dismissed} dismissed by LLM review` : "");
+  if (!vis.length) { $("#notes").innerHTML = `<div class="empty">${findings.length ? "No findings match these filters." : "Nothing flagged. Clean copy."}</div>`; return; }
+  $("#notes").innerHTML = vis.map((f, i) => {
+    const r = rules[f.rule_id] || {};
+    const det = f.detector === "llm" ? `<span class="badge llm">LLM</span>` : `<span class="badge">${esc(f.detector)}</span>`;
+    let review = "";
+    if (f.review) {
+      const v = f.review.verdict;
+      review = `<span class="badge ${v === "confirm" ? "ok" : v === "dismiss" ? "no" : ""}" title="${esc(f.review.note)}">LLM ${v === "confirm" ? "confirmed" : v === "dismiss" ? "dismissed" : "unsure"}</span>`;
+    }
+    const merged = f.weight < 1 && f.weight > 0 ? `<span title="Overlaps ${esc(f.related.join(", "))}; counted at ${Math.round(f.weight * 100)}% to avoid double-penalizing">merged ${Math.round(f.weight * 100)}%</span>` : "";
+    const excerpt = f.excerpt && f.excerpt.length > 0 ? `<blockquote>${esc(f.excerpt.length > 260 ? f.excerpt.slice(0, 260) + "…" : f.excerpt)}</blockquote>` : "";
+    const msg = f.message !== r.name ? `<p class="msg">${esc(f.message)}</p>` : `<p class="msg">${esc(r.description || "")}</p>`;
+    return `<article class="note ${f.dismissed ? "dismissed" : ""} ${state.selected === f.id ? "active" : ""}" data-id="${f.id}" style="--c:${cssVar(f.category)};animation-delay:${Math.min(i, 12) * 25}ms">
+      <header><span class="rid">${esc(f.rule_id)}</span><span class="rname">${esc(r.name || f.rule_id)}</span><span class="sev" title="severity ${f.severity}/5">${sevDots(f.severity)}</span></header>
+      ${excerpt}${msg}
+      ${f.evidence ? `<p class="ev">${esc(f.evidence)}</p>` : ""}
+      ${f.review && f.review.note ? `<p class="ev"><em>Reviewer:</em> ${esc(f.review.note)}</p>` : ""}
+      ${f.suggestion ? `<p class="fix"><b>${ACTION_LABEL[f.action] || "Fix"}</b>${esc(f.suggestion)}</p>` : ""}
+      <footer><span>${f.id}</span>${det}<span>conf ${f.confidence.toFixed(2)}</span><span>${esc(f.scope)}</span>${f.spans.length > 1 ? `<span>${f.spans.length} spans</span>` : ""}${merged}${review}</footer>
+    </article>`;
+  }).join("");
+}
+
+function select(id, { scrollDoc = true, scrollNote = true } = {}) {
+  state.selected = id;
+  renderDoc();
+  document.querySelectorAll(".note").forEach(n => n.classList.toggle("active", n.dataset.id === id));
+  if (!id) return;
+  const f = byId[id];
+  const els = [...document.querySelectorAll("#doc .sel")];
+  if (scrollDoc && els[0]) els[0].scrollIntoView({ behavior: "smooth", block: "center" });
+  flashEls(els, cssVar(f.category));
+  if (scrollNote) { const n = $(`.note[data-id="${id}"]`); if (n) n.scrollIntoView({ behavior: "smooth", block: "nearest" }); }
+}
+function flashEls(els, color) {
+  els.forEach(el => { el.style.setProperty("--cs", color); el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash"); });
+}
+$("#notes").addEventListener("click", e => {
+  const n = e.target.closest(".note"); if (!n) return;
+  select(state.selected === n.dataset.id ? null : n.dataset.id, { scrollNote: false });
+});
+
+/* ---------- Tooltip & doc clicks ---------- */
+const tip = $("#tip");
+let hotIds = null;
+$("#doc").addEventListener("mousemove", e => {
+  const el = e.target.closest(".hl");
+  if (!el) { tip.classList.remove("on"); setHot(null); return; }
+  const ids = el.dataset.f.split(" ");
+  if (hotIds !== el.dataset.f) {
+    setHot(el.dataset.f);
+    tip.innerHTML = ids.slice(0, 4).map(id => {
+      const f = byId[id], r = rules[f.rule_id] || {};
+      return `<div class="t-row" style="--c:${cssVar(f.category)}"><span class="t-id">${esc(f.rule_id)}</span><span>${esc(f.message === r.name ? r.name : f.message)}</span></div>`;
+    }).join("") + (ids.length > 4 ? `<div class="t-hint">+${ids.length - 4} more</div>` : "") + `<div class="t-hint">click to open note</div>`;
+  }
+  const x = Math.min(e.clientX + 14, innerWidth - 360), y = e.clientY + 18;
+  tip.style.left = x + "px"; tip.style.top = (y + tip.offsetHeight > innerHeight ? e.clientY - tip.offsetHeight - 12 : y) + "px";
+  tip.classList.add("on");
+});
+$("#doc").addEventListener("mouseleave", () => { tip.classList.remove("on"); setHot(null); });
+function setHot(key) {
+  if (hotIds === key) return;
+  document.querySelectorAll("#doc .hot").forEach(x => x.classList.remove("hot"));
+  hotIds = key;
+  if (key) { const first = key.split(" ")[0]; document.querySelectorAll("#doc .hl").forEach(x => { if (x.dataset.f.split(" ").includes(first)) x.classList.add("hot"); }); }
+}
+$("#doc").addEventListener("click", e => {
+  const el = e.target.closest(".hl"); if (!el) return;
+  const ids = el.dataset.f.split(" ");
+  // Cycle through stacked findings on repeated clicks.
+  const k = ids.indexOf(state.selected);
+  const next = ids[(k + 1) % ids.length];
+  activateTab("notes");
+  select(next, { scrollDoc: false });
+});
+
+/* ---------- Metrics ---------- */
+function renderMetrics() {
+  const M = D.metrics, S = D.scores;
+  const fmt = (v, d = 1) => v == null ? "—" : (typeof v === "number" ? (+v.toFixed(d)).toString() : v);
+  const stat = (k, v, sub = "") => `<div class="stat"><div class="k">${k}</div><div class="v">${v}${sub ? ` <small>${sub}</small>` : ""}</div></div>`;
+  const c = M.contribution;
+  const total = (c[0] || 0) + (c[1] || 0) + (c[2] || 0);
+  const lens = M.sentence_lengths;
+  const W = Math.max(lens.length * 8, 200), H = 140, maxN = Math.max(10, ...lens.map(l => l.n));
+  const contribOf = Object.fromEntries(D.sentences.map(s => [s.index, s.contribution]));
+  const meanY = H - (M.mean_sentence_words / maxN) * (H - 14);
+  const bars = lens.map((l, i) => {
+    const h = (l.n / maxN) * (H - 14);
+    const col = ["var(--contrib-0)", "var(--contrib-1)", "var(--contrib-2)"][contribOf[l.i] ?? 1];
+    return `<rect x="${i * 8 + 1}" y="${H - h}" width="6" height="${h}" fill="${col}" data-s="${l.i}"><title>S${l.i + 1}: ${l.n} words</title></rect>`;
+  }).join("");
+  const md = M.markdown || {};
+  $("#panel-metrics").innerHTML = `
+    <div class="stats">
+      ${stat("Words", M.words)}${stat("Sentences", M.prose_sentences, `${M.sentences} total`)}
+      ${stat("Mean sentence", fmt(M.mean_sentence_words), "words")}${stat("Length variation (CV)", fmt(M.sentence_length_cv, 2), "<0.35 = uniform")}
+      ${stat("Non-contributing", total ? Math.round((c[0] || 0) / total * 100) + "%" : "—", `${c[0] || 0} of ${total}`)}${stat("Specifics / sentence", fmt(M.specifics_per_sentence, 2), "numbers, names, code")}
+      ${stat("AI-vocab density", fmt(M.ai_vocab_per_1000), "per 1k words")}${stat("Em dashes", fmt(M.em_dashes_per_250), "per 250 words")}
+      ${stat("Abstract nouns", Math.round(M.abstract_noun_share * 1000) / 10 + "%", "of words")}${stat("Lexical diversity", fmt(M.lexical_diversity_mattr, 2), "MATTR")}
+      ${stat("Reading ease", fmt(M.flesch_reading_ease, 0), "Flesch")}${stat("Formatting", `${md.headings || 0}·${md.bold || 0}·${md.list_items || 0}`, "heads·bold·bullets")}
+    </div>
+    <h3>Sentence rhythm</h3>
+    <p class="hint">Each bar is a sentence, coloured by contribution. A flat skyline means a metronomic rhythm; a row of stubs is staccato.</p>
+    <svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" id="lenChart">
+      ${bars}<line x1="0" x2="${W}" y1="${meanY}" y2="${meanY}" stroke="var(--ink-3)" stroke-dasharray="4 4" vector-effect="non-scaling-stroke"/>
+    </svg>
+    <h3>Score breakdown</h3>
+    <p class="hint">Each dimension saturates toward 100 as weighted findings accumulate per 100 words. Weights are starting points, not calibrated values.</p>
+    <table class="rules-table">${Object.entries(dims).map(([k, d]) => {
+      const v = S.dimensions[k];
+      return `<tr style="--c:${cssVar(k)}"><td><span class="rid">${Math.round(v.score)}</span></td><td>${esc(d.label)}<div class="d">${esc(d.blurb)}</div></td><td class="cnt">${v.count} · ×${d.weight}</td></tr>`;
+    }).join("")}</table>
+    <p class="hint" style="margin-top:12px">Overall = Σ dimension × weight = <b>${S.overall == null ? "ungraded" : S.overall}</b>. Bands: ${S.bands.map(b => `${esc(b.name)} &lt;${b.max}`).join(" · ")}.</p>`;
+  $("#lenChart").addEventListener("click", e => {
+    const r = e.target.closest("rect"); if (!r) return;
+    const seg = $(`#doc [data-s="${r.dataset.s}"]`);
+    if (seg) { seg.scrollIntoView({ behavior: "smooth", block: "center" }); flashEls([...document.querySelectorAll(`#doc [data-s="${r.dataset.s}"]`)], "var(--accent)"); }
+  });
+}
+
+/* ---------- Rules ---------- */
+function renderRules() {
+  const counts = {};
+  for (const f of findings) if (!f.dismissed) counts[f.rule_id] = (counts[f.rule_id] || 0) + 1;
+  const hit = Object.keys(counts).length;
+  $("#nRules").textContent = `${hit}/${Object.keys(rules).length}`;
+  const order = Object.values(rules).sort((a, b) => Object.keys(dims).indexOf(a.category) - Object.keys(dims).indexOf(b.category) || a.id.localeCompare(b.id));
+  $("#panel-rules").innerHTML = `<p class="hint">${hit} of ${order.length} rules matched. Click a matched rule to filter notes.</p>
+    <table class="rules-table">${order.map(r => `<tr class="${counts[r.id] ? "hit" : ""}" data-rule="${r.id}" style="--c:${cssVar(r.category)};${counts[r.id] ? "cursor:pointer" : ""}">
+      <td><span class="rid">${r.id}</span></td>
+      <td><b>${esc(r.name)}</b>${r.llm_only ? ' <span class="badge llm">LLM only</span>' : ""}<div class="d">${esc(r.description)}</div></td>
+      <td class="cnt">${counts[r.id] ? counts[r.id] + "×" : "·"}</td></tr>`).join("")}</table>`;
+  $("#panel-rules").onclick = e => {
+    const tr = e.target.closest("tr[data-rule]"); if (!tr || !counts[tr.dataset.rule]) return;
+    state.q = tr.dataset.rule.toLowerCase(); $("#q").value = tr.dataset.rule;
+    state.cats = new Set(Object.keys(dims));
+    activateTab("notes"); renderAll();
+  };
+}
+
+function renderLLM() {
+  const L = D.llm;
+  if (!L) { $("#llmBox").innerHTML = ""; return; }
+  const errs = (L.errors || []).map(e => `<div class="err">⚠ ${esc(e)}</div>`).join("");
+  const cost = L.cost_usd != null ? ` · ~$${L.cost_usd.toFixed(4)}` : "";
+  $("#llmBox").innerHTML = `<div class="llm-box"><div class="k">Semantic review · ${esc(L.model)} · effort ${esc(L.effort)}</div>
+    ${L.summary ? `<div>${esc(L.summary)}</div>` : ""}
+    <div class="kbd" style="margin-top:6px">${L.input_tokens || 0} in / ${L.output_tokens || 0} out tokens${cost} · reviewed ${L.reviewed || 0} local findings, dismissed ${L.dismissed || 0}</div>${errs}</div>`;
+}
+
+/* ---------- Tabs, controls, keys ---------- */
+function activateTab(name) {
+  document.querySelectorAll(".tab").forEach(t => t.setAttribute("aria-selected", t.dataset.tab === name));
+  document.querySelectorAll(".panel").forEach(p => p.hidden = p.id !== `panel-${name}`);
+}
+document.querySelectorAll(".tab").forEach(t => t.addEventListener("click", () => activateTab(t.dataset.tab)));
+$("#q").addEventListener("input", e => { state.q = e.target.value.trim().toLowerCase(); renderAll(); });
+$("#sort").addEventListener("change", e => { state.sort = e.target.value; renderNotes(); });
+$("#minSev").addEventListener("change", e => { state.minSev = +e.target.value; renderAll(); });
+$("#det").addEventListener("change", e => { state.det = e.target.value; renderAll(); });
+$("#showDismissed").addEventListener("change", e => { state.showDismissed = e.target.checked; renderAll(); });
+$("#lensBtn").addEventListener("click", () => toggleLens());
+function toggleLens() { state.lens = !state.lens; $("#lensBtn").setAttribute("aria-pressed", state.lens); $("#doc").classList.toggle("lens", state.lens); }
+const THEMES = ["auto", "light", "dark"];
+function syncThemeBtn() { $("#themeBtn").textContent = "Theme: " + (document.documentElement.dataset.theme || "auto"); }
+$("#themeBtn").addEventListener("click", () => {
+  const cur = document.documentElement.dataset.theme || "auto";
+  const next = THEMES[(THEMES.indexOf(cur) + 1) % 3];
+  if (next === "auto") delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = next;
+  try { localStorage.setItem("ai-isms.theme", next === "auto" ? "" : next); } catch (e) {}
+  syncThemeBtn();
+});
+$("#jsonBtn").addEventListener("click", () => {
+  const blob = new Blob([JSON.stringify(D, null, 2)], { type: "application/json" });
+  const a = Object.assign(document.createElement("a"), { href: URL.createObjectURL(blob), download: (D.config.source || "report").replace(/[^\w.-]+/g, "_") + ".ai-isms.json" });
+  document.body.appendChild(a); a.click(); a.remove();
+});
+document.addEventListener("keydown", e => {
+  if (e.target.matches("input, select, textarea")) { if (e.key === "Escape") e.target.blur(); return; }
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  if (e.key === "/") { e.preventDefault(); activateTab("notes"); $("#q").focus(); }
+  else if (e.key === "l" || e.key === "L") toggleLens();
+  else if (e.key === "Escape") select(null);
+  else if (e.key === "j" || e.key === "k") {
+    const vis = sortedVisible(); if (!vis.length) return;
+    const i = vis.findIndex(f => f.id === state.selected);
+    const n = e.key === "j" ? (i + 1) % vis.length : (i <= 0 ? vis.length - 1 : i - 1);
+    activateTab("notes"); select(vis[n].id);
+  }
+});
+
+function renderAll() { renderChips(); renderDoc(); renderNotes(); }
+renderMast(); renderStrip(); renderLLM(); renderMetrics(); renderRules(); renderAll(); syncThemeBtn();
+})();
+</script>
+</body>
+</html>

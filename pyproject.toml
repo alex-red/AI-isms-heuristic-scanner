@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ai-isms"
+version = "0.1.0"
+description = "ESLint for prose: detect AI-isms and low-quality writing patterns with explainable, span-level findings and an interactive HTML report."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [{ name = "AI-isms Scanner contributors" }]
+keywords = ["writing", "style-checker", "linter", "prose", "llm", "nlp", "ai-isms", "writing-quality"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Intended Audience :: End Users/Desktop",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Text Processing :: Linguistic",
+]
+# The core engine is pure standard library on purpose: fast, offline, reproducible.
+dependencies = []
+
+[project.optional-dependencies]
+llm = ["anthropic>=1.0"]
+dev = ["pytest>=8"]
+
+[project.scripts]
+ai-isms = "ai_isms.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/alex-red/AI-isms-heuristic-scanner"
+Issues = "https://github.com/alex-red/AI-isms-heuristic-scanner/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ai_isms"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
