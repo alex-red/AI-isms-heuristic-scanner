@@ -7,6 +7,7 @@ python benchmark/fetch.py                     # once: download the human baselin
 python benchmark/run.py                       # table and summary
 python benchmark/run.py --truncate 250        # cut every sample to ~250 words, so lengths match
 python benchmark/run.py --json out.json       # save per-sample results
+python benchmark/run.py --markdown benchmark/RESULTS.md   # readable table of every text, score and result
 python benchmark/run.py --compare benchmark/baseline.json   # show score changes after a rule edit
 python benchmark/run.py --ids ai-story-opening ai-cover-letter --llm   # add the semantic pass (see below)
 ```
@@ -35,7 +36,7 @@ Downloaded text goes to `benchmark/data/`, which is gitignored, so nothing third
 | ai-typical | 14 | 21.2 | 38.9 | 79% |
 | ai-polished | 4 | 0.0 | 2.9 | 0% |
 
-AUC for human vs ai-typical is 0.90, and 0.90 again when every sample is cut to about 250 words. The full per-sample table is in [`baseline.json`](baseline.json).
+AUC for human vs ai-typical is 0.90, and 0.90 again when every sample is cut to about 250 words. Every text with its excerpt, score and result is in [`RESULTS.md`](RESULTS.md); the raw numbers are in [`baseline.json`](baseline.json). Regenerate `RESULTS.md` after intentional rule changes.
 
 What stands out:
 

@@ -27,7 +27,7 @@ The scanner is **not an AI detector**. It doesn't guess who wrote a text. It fla
 - **Writing quality**: repetition, vagueness, inflation, sentences that add nothing.
 - **Context**: genre profiles relax or tighten rules, because headings and bullets are normal in docs and fragments are normal in fiction.
 
-Every warning has a rule id, a span, a severity (1–5), a confidence (0–1, confidence in *the match*, not in authorship), an explanation and a suggested action. The overall score is there for comparing drafts; the findings are what you act on.
+Every warning has a rule id, a span, a severity (1–5), a confidence (0–1, confidence in *the match*, not in authorship), an explanation and a suggested action. The overall score is there for comparing drafts; the findings are what you act on. See [How well it works](#how-well-it-works) for measured strengths and limits.
 
 ## Install
 
@@ -191,6 +191,26 @@ For each finding, `points = severity_points × confidence × dedup_weight`, divi
 
 Texts under 80 words get findings but no grade. **The weights, thresholds and bands are starting points, not calibrated values.** Calibrating them against human ratings is the main open task (see below).
 
+## How well it works
+
+Measured on the [benchmark](benchmark/README.md): 27 human texts, 14 typical AI-style samples and 4 polished ones. [`benchmark/RESULTS.md`](benchmark/RESULTS.md) lists every text with its score and result. The AI-style samples were written for the benchmark, not sampled from deployed models, so treat the numbers as a first check, not an accuracy figure.
+
+| Text | Local rules | With `--llm` (8 samples) |
+|---|---|---|
+| Human (27) | median 2.9; 26 of 27 score Clean | Mostly unchanged; one padded answer rose from 15.1 to 22.2 |
+| Typical AI-style (14) | median 21.2; 79% score 12 or more | Three local misses rose from under 9 to 20 to 28 |
+| Polished AI-style (4) | all under 3 | 3.3 on the one tested |
+
+What this means in practice:
+
+- **Few false alarms on ordinary writing.** Fiction, essays, academic prose, documentation, forum posts and Q&A answers rarely trigger the local rules.
+- **Recall depends on vocabulary.** The local rules know blog, essay and chatbot habits well. They have no phrases for fiction clichés ("Little did she know") or cover-letter filler ("proven track record"), and R01 misses "more than just X". Those samples scored under 9 locally.
+- **The LLM pass fixes most of those gaps** for about $0.0025 a call, and dismisses false positives on classic prose. It also judges padding and repeated reassurance, so it can raise the score of a human answer that has them.
+- **Polished AI text passes, by design.** The tool flags writing problems, not authorship. Specific, varied prose scores low whoever wrote it, and a low score is not evidence that a human did.
+- **Scores run low.** The highest local-only score in the benchmark is 38.9, because the overall score is a weighted sum of six dimensions. The Heavy band (45 and up) was only reached with the LLM pass.
+
+Not yet measured: output from real models (as opposed to hand-written imitations), "humanized" rewrites, non-English text, and any human-rated ground truth.
+
 ## The HTML report
 
 One self-contained file (data inlined; fonts load from Google Fonts when online and fall back to system serif offline):
@@ -270,7 +290,7 @@ python benchmark/fetch.py     # once: download the human texts
 python benchmark/run.py       # table and summary
 ```
 
-On the current set, human texts have a median score of 2.9 and AI-style texts 21.2, and one human sample reaches the Light band. Run it before and after a rule change with `--compare benchmark/baseline.json`.
+On the current set, human texts have a median score of 2.9 and AI-style texts 21.2, and one human sample reaches the Light band. Run it before and after a rule change with `--compare benchmark/baseline.json`. Add `--ids ... --llm` to include the semantic pass through `claude -p`, or `--markdown benchmark/RESULTS.md` to regenerate the per-text [results table](benchmark/RESULTS.md).
 
 ### Project layout
 
@@ -298,6 +318,8 @@ On the current set, human texts have a median score of 2.9 and AI-style texts 21
 
 ## Roadmap
 
+- **Close the benchmark's gaps**: add fiction-cliché and cover-letter phrases and an R01 pattern for "more than just", tuning on half the samples and testing on the other half.
+- **Real model output**: replace the hand-written AI samples with generations from several models, including "make it sound human" rewrites.
 - **Calibration corpus**: human-rated texts that include well-written AI output, poor human writing, academic, technical, creative and translated prose, so the scorer doesn't just learn to punish polish.
 - Embedding-based paraphrase detection as an optional local extra.
 - Cross-document structure checks (every section built the same way).
