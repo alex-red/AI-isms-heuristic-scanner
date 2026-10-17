@@ -241,6 +241,8 @@ ai-isms ~/notes/draft.md --json -              # JSON to stdout
 
 To try the LLM pass, set `ANTHROPIC_API_KEY` and add `--llm`. It calls the real API and costs a fraction of a cent per page. The tests never touch the network.
 
+Pointing an LLM agent at a checkout? Give it [LLM-README.md](LLM-README.md), which covers setup, scanning, reading the JSON and reporting results.
+
 ### Tests
 
 ```bash
