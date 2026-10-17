@@ -1,0 +1,522 @@
+{
+  "version": 1,
+  "notes": "label 'human' = written by people, fetched by fetch.py into benchmark/data/ (gitignored). 'ai-typical' and 'ai-polished' = written by Claude for this benchmark and dedicated to the public domain (CC0). 'ai-typical' imitates unedited default output; 'ai-polished' was written to avoid the usual tells.",
+  "samples": [
+    {
+      "id": "pg-federalist-10",
+      "label": "human",
+      "genre": "essay",
+      "profile": "general",
+      "license": "Public domain (US)",
+      "source": {
+        "type": "gutenberg",
+        "id": 1404,
+        "start_at": "AMONG the numerous advantages",
+        "words": 800
+      },
+      "sha256": "697ca6c1ac9261571150936726b476d9ad3565eb8c9e02f1a331d356bb4ae7a2"
+    },
+    {
+      "id": "pg-walden-economy",
+      "label": "human",
+      "genre": "essay",
+      "profile": "general",
+      "license": "Public domain (US)",
+      "source": {
+        "type": "gutenberg",
+        "id": 205,
+        "start_at": "When I wrote the following pages",
+        "words": 800
+      },
+      "sha256": "e7ddbebfc3c7a4d65802413537ba75ddb107c034513548134f4a702c1d7e5ffe"
+    },
+    {
+      "id": "pg-franklin-autobiography",
+      "label": "human",
+      "genre": "essay",
+      "profile": "general",
+      "license": "Public domain (US)",
+      "source": {
+        "type": "gutenberg",
+        "id": 148,
+        "start_at": "Dear Son: I have ever had pleasure",
+        "words": 800
+      },
+      "sha256": "7215fe7df5f5521ba553524b3acdd12c22102bbb5090176b0eeffc874f106855"
+    },
+    {
+      "id": "pg-pragmatism",
+      "label": "human",
+      "genre": "academic",
+      "profile": "academic",
+      "license": "Public domain (US)",
+      "source": {
+        "type": "gutenberg",
+        "id": 5116,
+        "start_at": "In the preface to that admirable collection",
+        "words": 800
+      },
+      "sha256": "3ada4ef6e192bdb11e0d3d171a6484a14ce52a8116241db4898a5b487978cebf"
+    },
+    {
+      "id": "pg-problems-of-philosophy",
+      "label": "human",
+      "genre": "academic",
+      "profile": "academic",
+      "license": "Public domain (US)",
+      "source": {
+        "type": "gutenberg",
+        "id": 5827,
+        "start_at": "Is there any knowledge in the world which is so certain",
+        "words": 800
+      },
+      "sha256": "28334f859efd0d7b4b9c1b9d70bd8ed72950a23a0d8e32ffe8b953a32889d924"
+    },
+    {
+      "id": "pg-origin-of-species",
+      "label": "human",
+      "genre": "academic",
+      "profile": "academic",
+      "license": "Public domain (US)",
+      "source": {
+        "type": "gutenberg",
+        "id": 2009,
+        "start_at": "When we compare the individuals of the same variety or sub-variety of",
+        "words": 800
+      },
+      "sha256": "efa02a13ab613c5e71d790e5004ce02a635b2b5ce0559df2d86cac43ecfab3ae"
+    },
+    {
+      "id": "pg-pride-and-prejudice",
+      "label": "human",
+      "genre": "creative",
+      "profile": "creative",
+      "license": "Public domain (US)",
+      "source": {
+        "type": "gutenberg",
+        "id": 1342,
+        "start_at": "It is a truth universally acknowledged",
+        "words": 800
+      },
+      "sha256": "7addd1fdf1067e4e508e31a561b328d7a8cbd8d2cc4a54c5acd876a0c2f55310"
+    },
+    {
+      "id": "pg-sherlock-scandal",
+      "label": "human",
+      "genre": "creative",
+      "profile": "creative",
+      "license": "Public domain (US)",
+      "source": {
+        "type": "gutenberg",
+        "id": 1661,
+        "start_at": "To Sherlock Holmes she is always",
+        "words": 800
+      },
+      "sha256": "2a3378e457fae5a10f1d12230b2098f43d7634113645a29a2cd8531529d72bd9"
+    },
+    {
+      "id": "pg-great-gatsby",
+      "label": "human",
+      "genre": "creative",
+      "profile": "creative",
+      "license": "Public domain (US)",
+      "source": {
+        "type": "gutenberg",
+        "id": 64317,
+        "start_at": "In my younger and more vulnerable",
+        "words": 800
+      },
+      "sha256": "ca419dc95abb76782ee86010469d11297ecbd317953dda60361c298118960dec"
+    },
+    {
+      "id": "pg-roughing-it",
+      "label": "human",
+      "genre": "creative",
+      "profile": "creative",
+      "license": "Public domain (US)",
+      "source": {
+        "type": "gutenberg",
+        "id": 3177,
+        "start_at": "My brother had just been appointed",
+        "words": 800
+      },
+      "sha256": "ac83f65969c29e936cb012d3ddaad36e1e311edce7de7a440ae12db404ae41e1"
+    },
+    {
+      "id": "wiki-photosynthesis",
+      "label": "human",
+      "genre": "academic",
+      "profile": "academic",
+      "license": "CC BY-SA 4.0 (fetched at run time, not redistributed)",
+      "source": {
+        "type": "wikipedia",
+        "title": "Photosynthesis",
+        "words": 800
+      },
+      "sha256": "e8f104f03d29446cb5a40381bc69fadee3bad2a4bbc9cab9dc3d113c9a40cd7f"
+    },
+    {
+      "id": "wiki-bread",
+      "label": "human",
+      "genre": "essay",
+      "profile": "general",
+      "license": "CC BY-SA 4.0 (fetched at run time, not redistributed)",
+      "source": {
+        "type": "wikipedia",
+        "title": "Bread",
+        "words": 800
+      },
+      "sha256": "6d938d618eeea89e6d1edd36b36d4fae454775e04f6228fc5d89e02d89e664dd"
+    },
+    {
+      "id": "wiki-lighthouse",
+      "label": "human",
+      "genre": "essay",
+      "profile": "general",
+      "license": "CC BY-SA 4.0 (fetched at run time, not redistributed)",
+      "source": {
+        "type": "wikipedia",
+        "title": "Lighthouse",
+        "words": 800
+      },
+      "sha256": "4309b02aabbaba90afeca359e97598c1c05c13005fa65430dbd8dbe4cf5ef5e8"
+    },
+    {
+      "id": "wiki-tcp",
+      "label": "human",
+      "genre": "technical",
+      "profile": "technical",
+      "license": "CC BY-SA 4.0 (fetched at run time, not redistributed)",
+      "source": {
+        "type": "wikipedia",
+        "title": "Transmission Control Protocol",
+        "words": 800
+      },
+      "sha256": "9f00ead96af51eb1ed479a0a5ab30519308e0a5dad0416a1860ec36eb8ca95b4"
+    },
+    {
+      "id": "rust-book-ownership",
+      "label": "human",
+      "genre": "technical",
+      "profile": "technical",
+      "license": "MIT OR Apache-2.0",
+      "source": {
+        "type": "url",
+        "url": "https://raw.githubusercontent.com/rust-lang/book/main/src/ch04-01-what-is-ownership.md",
+        "words": 800
+      },
+      "sha256": "2c69132f582da2422335c3de1f5fa3c7486a9b87ee9fc1fe27dd2d050036398a"
+    },
+    {
+      "id": "rust-book-box",
+      "label": "human",
+      "genre": "technical",
+      "profile": "technical",
+      "license": "MIT OR Apache-2.0",
+      "source": {
+        "type": "url",
+        "url": "https://raw.githubusercontent.com/rust-lang/book/main/src/ch15-01-box.md",
+        "words": 800
+      },
+      "sha256": "8b055a69135e44527e98728c10c5aca7877a9f06883ae0595bbb22719b42d0f0"
+    },
+    {
+      "id": "se-cooking-81043",
+      "label": "human",
+      "genre": "qa",
+      "profile": "general",
+      "license": "CC BY-SA (Stack Exchange user content, pre-2021; fetched at run time, not redistributed)",
+      "source": {
+        "type": "stackexchange",
+        "site": "cooking",
+        "answer_id": 81043,
+        "words": 400
+      },
+      "sha256": "f6ae83f5d6bf91d90fa47b4598c7355400e26928ec8f7c946dba1de2e2845674"
+    },
+    {
+      "id": "se-workplace-124717",
+      "label": "human",
+      "genre": "qa",
+      "profile": "general",
+      "license": "CC BY-SA (Stack Exchange user content, pre-2021; fetched at run time, not redistributed)",
+      "source": {
+        "type": "stackexchange",
+        "site": "workplace",
+        "answer_id": 124717,
+        "words": 400
+      },
+      "sha256": "7e61b8dadc337b15e9e21fba46afd2c9bd8cc7efef1d432a05331c7cb65f2cd8"
+    },
+    {
+      "id": "se-travel-38180",
+      "label": "human",
+      "genre": "qa",
+      "profile": "general",
+      "license": "CC BY-SA (Stack Exchange user content, pre-2021; fetched at run time, not redistributed)",
+      "source": {
+        "type": "stackexchange",
+        "site": "travel",
+        "answer_id": 38180,
+        "words": 400
+      },
+      "sha256": "1d199c13dd7a298848958bb65b1b22aaefc84f420b9f7d6d1b0374c83f75e0e7"
+    },
+    {
+      "id": "se-travel-99258",
+      "label": "human",
+      "genre": "qa",
+      "profile": "general",
+      "license": "CC BY-SA (Stack Exchange user content, pre-2021; fetched at run time, not redistributed)",
+      "source": {
+        "type": "stackexchange",
+        "site": "travel",
+        "answer_id": 99258,
+        "words": 400
+      },
+      "sha256": "b5294b26b3f9644ff8b3b0b8d4aa0953d5e48e6b2273cec9a5223c5b672f8f2f"
+    },
+    {
+      "id": "se-money-99107",
+      "label": "human",
+      "genre": "qa",
+      "profile": "general",
+      "license": "CC BY-SA (Stack Exchange user content, pre-2021; fetched at run time, not redistributed)",
+      "source": {
+        "type": "stackexchange",
+        "site": "money",
+        "answer_id": 99107,
+        "words": 400
+      },
+      "sha256": "502ee92ee80b4f588b1ca1d3b1b45af8717c0ca8c9fa8b40afc7fff3a76b1428"
+    },
+    {
+      "id": "se-english-40095",
+      "label": "human",
+      "genre": "qa",
+      "profile": "general",
+      "license": "CC BY-SA (Stack Exchange user content, pre-2021; fetched at run time, not redistributed)",
+      "source": {
+        "type": "stackexchange",
+        "site": "english",
+        "answer_id": 40095,
+        "words": 400
+      },
+      "sha256": "68a217f3c81b5b8f5475425e00501c16975c3c29610f517ca6fc46baa3e460f4"
+    },
+    {
+      "id": "reddit-explainlikeimfive-c6dydfx",
+      "label": "human",
+      "genre": "reddit",
+      "profile": "casual",
+      "license": "Reddit user comment from the Webis-TLDR-17 corpus (2006-2016); fetched at run time, not redistributed",
+      "source": {
+        "type": "reddit-tldr",
+        "row": 55,
+        "id": "c6dydfx",
+        "words": 400
+      },
+      "sha256": "d534477b29aa507a1fa9d13b7e300a8726f82e6683ad04a7f243972b9ff56a6a"
+    },
+    {
+      "id": "reddit-business-c6fjtkv",
+      "label": "human",
+      "genre": "reddit",
+      "profile": "casual",
+      "license": "Reddit user comment from the Webis-TLDR-17 corpus (2006-2016); fetched at run time, not redistributed",
+      "source": {
+        "type": "reddit-tldr",
+        "row": 70,
+        "id": "c6fjtkv",
+        "words": 400
+      },
+      "sha256": "44d144bd4e25b79be09a93b077d4954adacf894219c8d70e09e071c5b0dd860d"
+    },
+    {
+      "id": "reddit-motorcycles-c6dqjex",
+      "label": "human",
+      "genre": "reddit",
+      "profile": "casual",
+      "license": "Reddit user comment from the Webis-TLDR-17 corpus (2006-2016); fetched at run time, not redistributed",
+      "source": {
+        "type": "reddit-tldr",
+        "row": 46,
+        "id": "c6dqjex",
+        "words": 400
+      },
+      "sha256": "c3194b5869104b2ad770895d932cc8530c9297068acd9561c0837f7825604bf8"
+    },
+    {
+      "id": "reddit-starcraft-c7fw6te",
+      "label": "human",
+      "genre": "reddit",
+      "profile": "casual",
+      "license": "Reddit user comment from the Webis-TLDR-17 corpus (2006-2016); fetched at run time, not redistributed",
+      "source": {
+        "type": "reddit-tldr",
+        "row": 66006,
+        "id": "c7fw6te",
+        "words": 400
+      },
+      "sha256": "4fccff063d0c03efec6e639b13d6b641aaf5dc543076729f258d8ebdbe1d6aaa"
+    },
+    {
+      "id": "reddit-history-c7g5sqq",
+      "label": "human",
+      "genre": "reddit",
+      "profile": "casual",
+      "license": "Reddit user comment from the Webis-TLDR-17 corpus (2006-2016); fetched at run time, not redistributed",
+      "source": {
+        "type": "reddit-tldr",
+        "row": 66012,
+        "id": "c7g5sqq",
+        "words": 400
+      },
+      "sha256": "722b83a904f3b62b5897f12b42655658d4716e84891d7b26ad3fde997a76a6ea"
+    },
+    {
+      "id": "ai-blog-remote-work",
+      "label": "ai-typical",
+      "genre": "blog",
+      "profile": "general",
+      "license": "CC0",
+      "file": "ai/blog-remote-work.md"
+    },
+    {
+      "id": "ai-blog-morning-routine",
+      "label": "ai-typical",
+      "genre": "blog",
+      "profile": "general",
+      "license": "CC0",
+      "file": "ai/blog-morning-routine.md"
+    },
+    {
+      "id": "ai-blog-ai-in-business",
+      "label": "ai-typical",
+      "genre": "blog",
+      "profile": "marketing",
+      "license": "CC0",
+      "file": "ai/blog-ai-in-business.md"
+    },
+    {
+      "id": "ai-essay-technology",
+      "label": "ai-typical",
+      "genre": "essay",
+      "profile": "general",
+      "license": "CC0",
+      "file": "ai/essay-technology-society.md"
+    },
+    {
+      "id": "ai-essay-education",
+      "label": "ai-typical",
+      "genre": "essay",
+      "profile": "academic",
+      "license": "CC0",
+      "file": "ai/essay-education.md"
+    },
+    {
+      "id": "ai-reddit-advice",
+      "label": "ai-typical",
+      "genre": "reddit",
+      "profile": "casual",
+      "license": "CC0",
+      "file": "ai/reddit-advice-comments.md"
+    },
+    {
+      "id": "ai-reddit-tech",
+      "label": "ai-typical",
+      "genre": "reddit",
+      "profile": "casual",
+      "license": "CC0",
+      "file": "ai/reddit-tech-comments.md"
+    },
+    {
+      "id": "ai-reddit-eli5",
+      "label": "ai-typical",
+      "genre": "reddit",
+      "profile": "casual",
+      "license": "CC0",
+      "file": "ai/reddit-eli5.md"
+    },
+    {
+      "id": "ai-linkedin-post",
+      "label": "ai-typical",
+      "genre": "social",
+      "profile": "marketing",
+      "license": "CC0",
+      "file": "ai/linkedin-post.md"
+    },
+    {
+      "id": "ai-product-description",
+      "label": "ai-typical",
+      "genre": "marketing",
+      "profile": "marketing",
+      "license": "CC0",
+      "file": "ai/product-description.md"
+    },
+    {
+      "id": "ai-chat-sleep",
+      "label": "ai-typical",
+      "genre": "chat",
+      "profile": "chat",
+      "license": "CC0",
+      "file": "ai/chat-answer-sleep.md"
+    },
+    {
+      "id": "ai-cover-letter",
+      "label": "ai-typical",
+      "genre": "letter",
+      "profile": "general",
+      "license": "CC0",
+      "file": "ai/cover-letter.md"
+    },
+    {
+      "id": "ai-docs-intro",
+      "label": "ai-typical",
+      "genre": "technical",
+      "profile": "technical",
+      "license": "CC0",
+      "file": "ai/docs-intro.md"
+    },
+    {
+      "id": "ai-story-opening",
+      "label": "ai-typical",
+      "genre": "creative",
+      "profile": "creative",
+      "license": "CC0",
+      "file": "ai/story-opening.md"
+    },
+    {
+      "id": "polished-blog-sourdough",
+      "label": "ai-polished",
+      "genre": "blog",
+      "profile": "general",
+      "license": "CC0",
+      "file": "ai/polished-blog-sourdough.md"
+    },
+    {
+      "id": "polished-essay-lighthouses",
+      "label": "ai-polished",
+      "genre": "essay",
+      "profile": "general",
+      "license": "CC0",
+      "file": "ai/polished-essay-lighthouses.md"
+    },
+    {
+      "id": "polished-reddit-comments",
+      "label": "ai-polished",
+      "genre": "reddit",
+      "profile": "casual",
+      "license": "CC0",
+      "file": "ai/polished-reddit-comments.md"
+    },
+    {
+      "id": "polished-technical-note",
+      "label": "ai-polished",
+      "genre": "technical",
+      "profile": "technical",
+      "license": "CC0",
+      "file": "ai/polished-technical-note.md"
+    }
+  ]
+}

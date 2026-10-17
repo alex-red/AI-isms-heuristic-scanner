@@ -1,0 +1,336 @@
+{
+  "version": "0.1.0",
+  "samples": [
+    {
+      "id": "pg-pride-and-prejudice",
+      "label": "human",
+      "genre": "creative",
+      "profile": "creative",
+      "words": 860,
+      "score": 1.5,
+      "band": "Clean",
+      "dimensions": {
+        "semantic_emptiness": 1.3,
+        "repetition": 3.3,
+        "formulaic_rhetoric": 1.9,
+        "structure_rhythm": 10.8,
+        "generic_vocabulary": 0.0,
+        "performative_tone": 1.9
+      },
+      "findings": {
+        "S02": 1,
+        "D02": 1,
+        "T05": 1,
+        "R01": 1,
+        "S07": 1
+      },
+      "sha256": "7addd1fdf1067e4e",
+      "score_local": 3.1,
+      "llm_ok": true,
+      "llm_errors": [],
+      "llm_cost_usd": 0.00301,
+      "llm_summary": "The excerpt is clean: its wit, characterization and concrete social detail carry the dialogue, and all five local findings are false positives from dialogue conventions and period style. No semantic problems appear; the only non-prose content is illustration and copyright artifacts (S9\u2013S11).",
+      "llm_dismissed": 5,
+      "llm_findings": []
+    },
+    {
+      "id": "se-workplace-124717",
+      "label": "human",
+      "genre": "qa",
+      "profile": "general",
+      "words": 199,
+      "score": 22.2,
+      "band": "Light",
+      "dimensions": {
+        "semantic_emptiness": 19.3,
+        "repetition": 0.0,
+        "formulaic_rhetoric": 8.0,
+        "structure_rhythm": 41.2,
+        "generic_vocabulary": 0.0,
+        "performative_tone": 19.3
+      },
+      "findings": {
+        "S02": 1,
+        "C04": 1,
+        "R01": 1,
+        "S07": 1,
+        "T03": 1
+      },
+      "sha256": "7e61b8dadc337b15",
+      "score_local": 15.1,
+      "llm_ok": true,
+      "llm_errors": [],
+      "llm_cost_usd": 0.00268,
+      "llm_summary": "The advice is partly useful (concrete lockout proposal, resume figures, the named Gone Horribly Right concept), but it is padded with repeated reassurance (S6, S7, S8, S13) and empty praise that restates the same point. Vague referents like 'this' and 'something' and very short one-line paragraphs make the substance harder to find.",
+      "llm_dismissed": 2,
+      "llm_findings": [
+        {
+          "rule_id": "C03",
+          "severity": 2,
+          "confidence": 0.35,
+          "quote": "There was no way to foresee the wild popularity and viral nature of your game"
+        },
+        {
+          "rule_id": "D01",
+          "severity": 2,
+          "confidence": 0.8,
+          "quote": "this is not something you did wrong"
+        }
+      ]
+    },
+    {
+      "id": "reddit-explainlikeimfive-c6dydfx",
+      "label": "human",
+      "genre": "reddit",
+      "profile": "casual",
+      "words": 166,
+      "score": 8.4,
+      "band": "Clean",
+      "dimensions": {
+        "semantic_emptiness": 24.5,
+        "repetition": 0.0,
+        "formulaic_rhetoric": 0.0,
+        "structure_rhythm": 0.0,
+        "generic_vocabulary": 0.0,
+        "performative_tone": 0.0
+      },
+      "findings": {
+        "C04": 1
+      },
+      "sha256": "d534477b29aa507a",
+      "score_local": 7.3,
+      "llm_ok": true,
+      "llm_errors": [],
+      "llm_cost_usd": 0.00155,
+      "llm_summary": "The explanation is concrete and mostly clear, built on a photocopier analogy and then mapped onto torrenting. The main problems are the muddled head count in S2 (\"2 people out of 4\") and a closing recap (S5) that repeats the point just made.",
+      "llm_dismissed": 1,
+      "llm_findings": [
+        {
+          "rule_id": "D03",
+          "severity": 1,
+          "confidence": 0.45,
+          "quote": "Essentially, the more people involved, the faster the file spreads"
+        }
+      ]
+    },
+    {
+      "id": "ai-blog-remote-work",
+      "label": "ai-typical",
+      "genre": "blog",
+      "profile": "general",
+      "words": 239,
+      "score": 45.8,
+      "band": "Heavy",
+      "dimensions": {
+        "semantic_emptiness": 62.7,
+        "repetition": 0.0,
+        "formulaic_rhetoric": 40.2,
+        "structure_rhythm": 58.0,
+        "generic_vocabulary": 50.7,
+        "performative_tone": 3.0
+      },
+      "findings": {
+        "S05": 1,
+        "C01": 1,
+        "L03": 2,
+        "L01": 2,
+        "R01": 1,
+        "R03": 1,
+        "C03": 2,
+        "L05": 3,
+        "S04": 1,
+        "T06": 1,
+        "C07": 2,
+        "L06": 2,
+        "R02": 2,
+        "C06": 1
+      },
+      "sha256": "4f8b5b72aa86238e",
+      "score_local": 38.9,
+      "llm_ok": true,
+      "llm_errors": [],
+      "llm_cost_usd": 0.00336,
+      "llm_summary": "The text is generic and mostly content-free: the opening, transitions, and closing are stock framing, and the core advice ('communication is key', 'trust is the foundation', 'be proactive') lacks concrete practices. The conclusion makes sweeping, unsupported claims ('the future of work is here', 'the best is yet to come') and ends on engagement bait. Only the challenges sentence and the benefits mechanisms carry real information.",
+      "llm_dismissed": 4,
+      "llm_findings": [
+        {
+          "rule_id": "C06",
+          "severity": 2,
+          "confidence": 0.6,
+          "quote": "Trust is the foundation on which great teams are built."
+        },
+        {
+          "rule_id": "T02",
+          "severity": 2,
+          "confidence": 0.75,
+          "quote": "the best is yet to come"
+        }
+      ]
+    },
+    {
+      "id": "ai-product-description",
+      "label": "ai-typical",
+      "genre": "marketing",
+      "profile": "marketing",
+      "words": 159,
+      "score": 27.9,
+      "band": "Noticeable",
+      "dimensions": {
+        "semantic_emptiness": 0.0,
+        "repetition": 0.0,
+        "formulaic_rhetoric": 0.0,
+        "structure_rhythm": 27.9,
+        "generic_vocabulary": 27.5,
+        "performative_tone": 0.0
+      },
+      "findings": {
+        "L01": 1,
+        "S05": 1,
+        "S06": 1,
+        "L02": 1
+      },
+      "sha256": "ce8ced24d665e4aa",
+      "score_local": 6.9,
+      "llm_ok": true,
+      "llm_errors": [],
+      "llm_cost_usd": 0.00298,
+      "llm_summary": "The copy is mostly generic marketing puffery in its opening and closing lines, with words like seamless, journey, and elevate carrying no product information. The four feature lines are the only substance, and even they lack materials, capacity, temperature or duration figures, and comparisons, so claims like \"Superior Insulation\" and \"Smart Technology\" cannot be checked.",
+      "llm_dismissed": 2,
+      "llm_findings": [
+        {
+          "rule_id": "T02",
+          "severity": 2,
+          "confidence": 0.55,
+          "quote": "on the journey to a healthier, more vibrant you"
+        },
+        {
+          "rule_id": "C01",
+          "severity": 3,
+          "confidence": 0.8,
+          "quote": "Crafted with premium, high-quality materials, this cutting-edge bottle is designed to elevate your hydration experience."
+        },
+        {
+          "rule_id": "C03",
+          "severity": 2,
+          "confidence": 0.45,
+          "quote": "Superior Insulation:"
+        },
+        {
+          "rule_id": "C06",
+          "severity": 2,
+          "confidence": 0.55,
+          "quote": "Experience the difference that thoughtful design can make."
+        }
+      ]
+    },
+    {
+      "id": "ai-cover-letter",
+      "label": "ai-typical",
+      "genre": "letter",
+      "profile": "general",
+      "words": 208,
+      "score": 26.8,
+      "band": "Noticeable",
+      "dimensions": {
+        "semantic_emptiness": 18.6,
+        "repetition": 0.0,
+        "formulaic_rhetoric": 0.0,
+        "structure_rhythm": 9.4,
+        "generic_vocabulary": 14.9,
+        "performative_tone": 0.0
+      },
+      "findings": {
+        "L01": 1,
+        "S07": 1,
+        "C01": 2,
+        "L06": 1
+      },
+      "sha256": "5e4364a8e5a0092b",
+      "score_local": 8.5,
+      "llm_ok": true,
+      "llm_errors": [],
+      "llm_cost_usd": 0.00268,
+      "llm_summary": "The letter is generic and buzzword-heavy: nearly every claim about the candidate (track record, results-driven, strong communicator) is asserted without a single example, metric, or named achievement. Paragraph-level self-praise and stock phrases such as \"next level\" and \"innovation and excellence\" repeat without adding information specific to the role or company.",
+      "llm_dismissed": 1,
+      "llm_findings": [
+        {
+          "rule_id": "C01",
+          "severity": 2,
+          "confidence": 0.7,
+          "quote": "With a proven track record of driving results and a passion for crafting compelling narratives"
+        },
+        {
+          "rule_id": "C06",
+          "severity": 2,
+          "confidence": 0.6,
+          "quote": "I am a strong communicator and a collaborative team player"
+        }
+      ]
+    },
+    {
+      "id": "ai-story-opening",
+      "label": "ai-typical",
+      "genre": "creative",
+      "profile": "creative",
+      "words": 171,
+      "score": 19.6,
+      "band": "Light",
+      "dimensions": {
+        "semantic_emptiness": 0.0,
+        "repetition": 0.0,
+        "formulaic_rhetoric": 0.0,
+        "structure_rhythm": 0.0,
+        "generic_vocabulary": 0.0,
+        "performative_tone": 0.0
+      },
+      "findings": {},
+      "sha256": "a5ed9d99a31cef94",
+      "score_local": 0.0,
+      "llm_ok": true,
+      "llm_errors": [],
+      "llm_cost_usd": 0.00222,
+      "llm_summary": "The passage relies on stock atmospheric language and unnamed feelings (\"emotions she could not name,\" \"a feeling she could not quite explain\") that give the reader little to hold onto. The ending leans on a formulaic foreshadowing hook and an unsupported claim that \"nothing would ever be the same again,\" while the concrete dialogue and the unidentified voice are the only passages with real narrative substance.",
+      "llm_dismissed": 0,
+      "llm_findings": [
+        {
+          "rule_id": "C06",
+          "severity": 2,
+          "confidence": 0.55,
+          "quote": "a feeling she could not quite explain"
+        },
+        {
+          "rule_id": "C03",
+          "severity": 3,
+          "confidence": 0.8,
+          "quote": "nothing would ever be the same again"
+        }
+      ]
+    },
+    {
+      "id": "polished-blog-sourdough",
+      "label": "ai-polished",
+      "genre": "blog",
+      "profile": "general",
+      "words": 224,
+      "score": 3.3,
+      "band": "Clean",
+      "dimensions": {
+        "semantic_emptiness": 0.0,
+        "repetition": 0.0,
+        "formulaic_rhetoric": 0.0,
+        "structure_rhythm": 0.0,
+        "generic_vocabulary": 0.0,
+        "performative_tone": 0.0
+      },
+      "findings": {},
+      "sha256": "89782cbc62f2b240",
+      "score_local": 0.0,
+      "llm_ok": true,
+      "llm_errors": [],
+      "llm_cost_usd": 0.00115,
+      "llm_summary": "The text is clean: it is specific throughout, with concrete temperatures, feeding routines, a readiness signal and a troubleshooting checklist. The only weak spot is S9 (\"What worked in the end was boring.\"), which is performative framing rather than substance.",
+      "llm_dismissed": 0,
+      "llm_findings": []
+    }
+  ]
+}

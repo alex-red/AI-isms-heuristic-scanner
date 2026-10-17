@@ -53,6 +53,8 @@ def build_parser() -> argparse.ArgumentParser:
     g.add_argument("--llm", action="store_true", help="Add a semantic pass with a Claude model.")
     g.add_argument("--model", default=None, help="Model id (default: claude-haiku-5-5).")
     g.add_argument("--effort", default="low", choices=["low", "medium", "high", "xhigh", "max"], help="Model effort (default: low).")
+    g.add_argument("--llm-backend", choices=["api", "claude"], default="api",
+                   help="'api' uses the Anthropic SDK (default); 'claude' shells out to `claude -p` and needs no API key.")
     g.add_argument("--no-review", action="store_true", help="Don't ask the LLM to review local findings.")
     p.add_argument("--fail-above", type=float, metavar="SCORE", help="Exit with status 2 if an overall score exceeds SCORE (for CI).")
     p.add_argument("--list-rules", action="store_true", help="Print the rule catalog and exit.")
@@ -70,7 +72,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.llm:
         from .llm import DEFAULT_MODEL, LLMOptions
 
-        llm_opts = LLMOptions(model=args.model or DEFAULT_MODEL, effort=args.effort, review_local=not args.no_review)
+        llm_opts = LLMOptions(model=args.model or DEFAULT_MODEL, effort=args.effort, review_local=not args.no_review,
+                              backend="claude-cli" if args.llm_backend == "claude" else "api")
 
     inputs = args.inputs or ["-"]
     thresholds = _parse_thresholds(args.set)

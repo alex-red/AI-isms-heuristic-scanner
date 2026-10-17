@@ -9,3 +9,8 @@ build/
 *.ai-isms.json
 !examples/*.ai-isms.html
 .DS_Store
+
+# benchmark: downloaded corpus and local results
+benchmark/data/
+benchmark/results*.json
+!benchmark/baseline.json

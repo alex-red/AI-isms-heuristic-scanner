@@ -42,6 +42,7 @@ Guidelines:
 - **Don't flag single common words.** Require a cluster, a density threshold, or a construction.
 - Read thresholds through `ctx.t("R07.key", default)` so profiles and `--set` can tune them.
 - Add a positive and a negative case to `tests/test_rules.py`.
+- Run `python benchmark/run.py --compare benchmark/baseline.json` and check that human samples didn't gain findings. See [benchmark/README.md](benchmark/README.md).
 - If the rule can only be judged semantically, register it with `llm_rule(...)` and add its id to `SEMANTIC_RULES` in `llm.py`.
 
 ## Phrase lists

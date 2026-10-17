@@ -8,14 +8,18 @@ The LLM does three things the local engine can't do well:
 Every LLM finding must quote the text so it can be highlighted; quotes that can't
 be located fall back to whole-sentence highlights.
 
-Requires ``pip install 'ai-isms[llm]'`` and credentials the Anthropic SDK can
-resolve (ANTHROPIC_API_KEY, or an ``ant auth login`` profile).
+Two backends: the Anthropic SDK (default; requires ``pip install 'ai-isms[llm]'`` and
+credentials it can resolve, such as ANTHROPIC_API_KEY or an ``ant auth login`` profile),
+or ``backend="claude-cli"``, which shells out to ``claude -p`` and uses whatever login
+Claude Code already has (no SDK or API key needed).
 """
 
 from __future__ import annotations
 
 import json
 import re
+import subprocess
+import tempfile
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -36,6 +40,8 @@ class LLMOptions:
     effort: str = "low"
     review_local: bool = True
     max_tokens: int = 32000
+    backend: str = "api"  # "api" (Anthropic SDK) or "claude-cli" (`claude -p`)
+    timeout: int = 600
 
 
 @dataclass
@@ -231,15 +237,56 @@ def _call(client: Any, opts: LLMOptions, system: str, user: str) -> tuple[dict[s
         return None, meta
 
 
+def _call_cli(opts: LLMOptions, system: str, user: str) -> tuple[dict[str, Any] | None, dict[str, Any]]:
+    """Same contract as `_call`, but through `claude -p` with a JSON schema and no tools."""
+    cmd = ["claude", "-p", "--model", opts.model, "--effort", opts.effort, "--output-format", "json",
+           "--json-schema", json.dumps(_schema()), "--system-prompt", system, "--tools", "",
+           "--no-session-persistence", "--disable-slash-commands"]
+    try:
+        # Run from an empty temp dir so no project CLAUDE.md or settings leak into the request.
+        with tempfile.TemporaryDirectory() as cwd:
+            proc = subprocess.run(cmd, input=user, capture_output=True, text=True, cwd=cwd, timeout=opts.timeout)
+    except FileNotFoundError:
+        return None, {"error": "`claude` CLI not found on PATH."}
+    except subprocess.TimeoutExpired:
+        return None, {"error": f"`claude -p` timed out after {opts.timeout}s."}
+    try:
+        out = json.loads(proc.stdout)
+    except json.JSONDecodeError:
+        return None, {"error": f"`claude -p` exited {proc.returncode} without JSON: {(proc.stderr or proc.stdout)[:200].strip()}"}
+
+    usage = out.get("usage", {})
+    meta: dict[str, Any] = {
+        "input_tokens": usage.get("input_tokens", 0) + usage.get("cache_creation_input_tokens", 0) + usage.get("cache_read_input_tokens", 0),
+        "output_tokens": usage.get("output_tokens", 0),
+        "cost_usd": out.get("total_cost_usd"),
+        "stop_reason": out.get("stop_reason"),
+    }
+    if out.get("is_error"):
+        meta["error"] = f"`claude -p` error: {str(out.get('result', ''))[:200]}"
+        return None, meta
+    data = out.get("structured_output")
+    if not isinstance(data, dict):
+        try:
+            data = json.loads(out.get("result", ""))
+        except (json.JSONDecodeError, TypeError):
+            meta["error"] = "Model output was not valid JSON"
+            return None, meta
+    return data, meta
+
+
 def run_llm(doc: Document, local: list[Finding], opts: LLMOptions, *, profile: str) -> LLMResult:
     result = LLMResult(info={"model": opts.model, "effort": opts.effort, "ok": False, "errors": [], "summary": ""})
-    try:
-        import anthropic
-    except ImportError:
-        result.info["errors"].append("The 'anthropic' package is not installed: pip install 'ai-isms[llm]'")
-        return result
-
-    client = anthropic.Anthropic()
+    cli = opts.backend == "claude-cli"
+    client = None
+    if not cli:
+        try:
+            import anthropic
+        except ImportError:
+            result.info["errors"].append("The 'anthropic' package is not installed: pip install 'ai-isms[llm]'")
+            return result
+        client = anthropic.Anthropic()
+    result.info["backend"] = opts.backend
     system = SYSTEM_PROMPT.format(rules=_rules_block())
     scored = [s.index for s in doc.sentences if doc.paragraphs[s.para].kind != "heading"]
     if not scored:
@@ -248,14 +295,17 @@ def run_llm(doc: Document, local: list[Finding], opts: LLMOptions, *, profile: s
 
     by_id = {f.id: f for f in local}
     in_tok = out_tok = 0
+    cli_cost = 0.0
     summaries = []
     for c0 in range(0, len(scored), CHUNK_SENTENCES):
         chunk = scored[c0:c0 + CHUNK_SENTENCES]
         lo, hi = doc.sentences[chunk[0]].start, doc.sentences[chunk[-1]].end
         chunk_local = [f for f in local if f.spans and lo <= f.spans[0].start < hi] if opts.review_local else []
-        data, meta = _call(client, opts, system, _build_user_message(doc, chunk, chunk_local, profile))
+        message = _build_user_message(doc, chunk, chunk_local, profile)
+        data, meta = _call_cli(opts, system, message) if cli else _call(client, opts, system, message)
         in_tok += meta.get("input_tokens", 0)
         out_tok += meta.get("output_tokens", 0)
+        cli_cost += meta.get("cost_usd") or 0.0
         if data is None:
             result.info["errors"].append(meta.get("error", "unknown error"))
             continue
@@ -293,7 +343,7 @@ def run_llm(doc: Document, local: list[Finding], opts: LLMOptions, *, profile: s
         "ok": bool(result.contributions or result.findings),
         "input_tokens": in_tok,
         "output_tokens": out_tok,
-        "cost_usd": round((in_tok * price[0] + out_tok * price[1]) / 1e6, 5) if price else None,
+        "cost_usd": round(cli_cost, 5) if cli else (round((in_tok * price[0] + out_tok * price[1]) / 1e6, 5) if price else None),
         "summary": " ".join(summaries),
         "reviewed": sum(1 for f in local if f.review),
         "dismissed": sum(1 for f in local if f.review and f.review.get("verdict") == "dismiss"),

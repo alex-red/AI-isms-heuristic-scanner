@@ -157,6 +157,8 @@ pip install -e '.[llm]'             # if the anthropic package is missing
 ai-isms TARGET.md --llm --json -q > report.json
 ```
 
+No API key? Add `--llm-backend claude` to run the pass through `claude -p` with the existing Claude Code login. It needs no `anthropic` package, uses the same `--model` and `--effort` flags, and is slower and a little more expensive per call.
+
 It rates each sentence, adds semantic findings (tautology, circular reasoning, generic advice) and confirms or dismisses local findings. The default model is `claude-haiku-5-5` at `--effort low`; use `--model` and `--effort` to change them. `--no-review` skips the review of local findings. If the API call fails, the local results are still produced and the error is recorded under `llm` in the JSON. A 1,000-word document costs roughly $0.001 with the defaults.
 
 ## 8. Reporting back to the user

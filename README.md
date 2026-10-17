@@ -102,7 +102,7 @@ With `--llm`, one structured-output request per ~120 sentences goes to Claude Ha
 2. reports semantic findings (tautology, circular reasoning, generic advice, paraphrased repetition…), each with an exact quote that must be found in the text to be highlighted,
 3. reviews the local findings and confirms or dismisses each one. Dismissed findings stay visible (struck through) but stop counting toward the score.
 
-A 1,000-word document costs about $0.001 on Haiku 5.5 at low effort; the report shows token usage and cost. If the call fails, the local results are still produced and the error appears in the report.
+A 1,000-word document costs about $0.001 on Haiku 5.5 at low effort; the report shows token usage and cost. To use your Claude Code login instead of an API key, add `--llm-backend claude`, which runs `claude -p` (about $0.0025 per call with the extra Claude Code overhead). If the call fails, the local results are still produced and the error appears in the report.
 
 ## Rules
 
@@ -261,6 +261,17 @@ ai-isms README.md -p technical --fail-above 25
 
 Run that command after editing the README. If the score goes over 25, CI fails.
 
+### Benchmark
+
+[`benchmark/`](benchmark/README.md) scans 27 human texts (Gutenberg, Wikipedia, the Rust book, pre-2021 Stack Exchange answers and Reddit comments) and 18 AI-style samples (blog posts, essays, Reddit comments and more), then reports score separation and which rules fire on human writing:
+
+```bash
+python benchmark/fetch.py     # once: download the human texts
+python benchmark/run.py       # table and summary
+```
+
+On the current set, human texts have a median score of 2.9 and AI-style texts 21.2, and one human sample reaches the Light band. Run it before and after a rule change with `--compare benchmark/baseline.json`.
+
 ### Project layout
 
 | Path | Contents |
@@ -275,6 +286,7 @@ Run that command after editing the README. If the score goes over 25, CI fails.
 | `src/ai_isms/llm.py` | Optional Claude semantic pass |
 | `src/ai_isms/report/` | HTML (`template.html`), JSON and terminal output |
 | `tests/` | pytest suite |
+| `benchmark/` | Human vs AI-style sample set, fetch and run scripts |
 | `examples/` | Sample inputs and their generated reports |
 
 ### Common tasks
